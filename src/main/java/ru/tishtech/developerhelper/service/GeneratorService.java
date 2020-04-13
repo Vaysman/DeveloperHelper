@@ -30,6 +30,14 @@ public class GeneratorService {
         String modelPath = projectName + "/" + FilePaths.SRC_MAIN_JAVA_DIR +
                 groupIdParts[0] + "/" + groupIdParts[1] + "/" + projectName + "/" + FilePaths.MODEL_DIR;
         WriterService.writeData(modelData, model + FileTypes.JAVA_TYPE, modelPath);
+
+        List<String> repositoryData = RepositoryGeneratorService.generateRepositoryData(
+                ReaderService.readData(FileNames.REPOSITORY_NAME + FileTypes.TXT_TYPE),
+                projectName, groupId, model);
+        String repositoryPath = projectName + "/" + FilePaths.SRC_MAIN_JAVA_DIR +
+                groupIdParts[0] + "/" + groupIdParts[1] + "/" + projectName + "/" + FilePaths.REPOSITORY_DIR;
+        WriterService.writeData(repositoryData,
+                model + FileNames.REPOSITORY_NAME + FileTypes.JAVA_TYPE, repositoryPath);
     }
 
 }

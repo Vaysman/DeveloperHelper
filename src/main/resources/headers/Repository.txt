@@ -1,0 +1,8 @@
+package {groupId}.{projectName}.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import {groupId}.{projectName}.model.{Model};
+
+public interface {Model}Repository extends JpaRepository<{Model}, Long> {
+
+}
