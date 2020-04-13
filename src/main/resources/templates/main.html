@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello!</title>
+</head>
+<body>
+<form th:action="@{/}" method="post">
+    <input type="text" name="projectName" placeholder="projectName">
+    <input type="text" name="groupId" placeholder="groupId">
+    <input type="submit" value="Generate!">
+</form>
+</body>
+</html>
