@@ -1,11 +1,8 @@
 package ru.tishtech.developerhelper.service;
 
-import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 public class PomGeneratorService {
 
     public static List<String> generatePomData(List<String> data, String projectName, String groupId) {
@@ -18,9 +15,13 @@ public class PomGeneratorService {
                 "    <groupId>org.springframework.boot</groupId>\n" +
                 "    <artifactId>spring-boot-starter-web</artifactId>\n" +
                 "</dependency>\n");
+        String dependenciesString = "";
+        for (String dependency : dependencies) {
+            dependenciesString += dependency;
+        }
         boolean groupIdWasFound = false;
         boolean artifactIdWasFound = false;
-        boolean dependenciesWasFound = false;
+        boolean dependenciesWereFound = false;
         for (int i = 0; i < data.size(); i++) {
             if (!groupIdWasFound && data.get(i).contains("{groupId}")) {
                 data.set(i, data.get(i).replace("{groupId}", groupId));
@@ -28,13 +29,9 @@ public class PomGeneratorService {
             } else if (!artifactIdWasFound && data.get(i).contains("{artifactId}")) {
                 data.set(i, data.get(i).replace("{artifactId}", projectName));
                 artifactIdWasFound = true;
-            } else if (!dependenciesWasFound && data.get(i).contains("{dependencies}")) {
-                String dependenciesString = "";
-                for (String dependency : dependencies) {
-                    dependenciesString += dependency;
-                }
+            } else if (!dependenciesWereFound && data.get(i).contains("{dependencies}")) {
                 data.set(i, data.get(i).replace("{dependencies}", dependenciesString));
-                dependenciesWasFound = true;
+                dependenciesWereFound = true;
             }
         }
         return data;
