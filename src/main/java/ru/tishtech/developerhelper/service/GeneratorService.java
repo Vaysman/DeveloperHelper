@@ -46,6 +46,13 @@ public class GeneratorService {
                 groupIdParts[0] + "/" + groupIdParts[1] + "/" + projectName + "/" + FilePaths.CONTROLLER_DIR;
         WriterService.writeData(controllerData,
                 model + FileNames.CONTROLLER_NAME + FileTypes.JAVA_TYPE, controllerPath);
+
+        List<String> modelListPageData = ModelListPageGeneratorService.generateModelListPageData(
+                ReaderService.readData(FileNames.MODEL_LIST_NAME + FileTypes.TXT_TYPE),
+                variables, model);
+        String modelListPagePath = projectName + "/" + FilePaths.SRC_MAIN_RESOURCES_TEMPLATES_DIR;
+        WriterService.writeData(modelListPageData,
+                FileNames.MODEL_LIST_NAME + FileTypes.HTML_TYPE, modelListPagePath);
     }
 
 }

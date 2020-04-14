@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>{Model} List</title>
+</head>
+<body>
+<h1>{Model} List</h1>
+<a th:href="@{/{model}/add}">Add New</a>
+<table border="1">
+    <thead>
+    <tr>
+{variableTHeads}
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="{model}: ${{model}s}">
+{variableTDs}
+        <td>
+            <a th:href="@{'/{model}/' + ${{model}.id} + '/edit'}"</a>
+            <a th:href="@{'/{model}/' + ${{model}.id} + '/delete'}"</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -7,5 +7,6 @@ public class FileNames {
     public static final String CONTROLLER_NAME = "Controller";
     public static final String MODEL_NAME = "Model";
     public static final String REPOSITORY_NAME = "Repository";
+    public static final String MODEL_LIST_NAME = "modelList";
 
 }
