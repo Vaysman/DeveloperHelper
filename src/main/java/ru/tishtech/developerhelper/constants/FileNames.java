@@ -8,5 +8,9 @@ public class FileNames {
     public static final String MODEL_NAME = "Model";
     public static final String REPOSITORY_NAME = "Repository";
     public static final String MODEL_LIST_NAME = "modelList";
-
+    public static final String MODEL_ADD_NAME = "modelAdd";
+    public static final String MODEL_EDIT_NAME = "modelEdit";
+    public static final String LIST_NAME = "List";
+    public static final String ADD_NAME = "Add";
+    public static final String EDIT_NAME = "Edit";
 }

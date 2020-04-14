@@ -47,12 +47,25 @@ public class GeneratorService {
         WriterService.writeData(controllerData,
                 model + FileNames.CONTROLLER_NAME + FileTypes.JAVA_TYPE, controllerPath);
 
+        String modelPagesPath = projectName + "/" + FilePaths.SRC_MAIN_RESOURCES_TEMPLATES_DIR;
+
         List<String> modelListPageData = ModelListPageGeneratorService.generateModelListPageData(
                 ReaderService.readData(FileNames.MODEL_LIST_NAME + FileTypes.TXT_TYPE),
                 variables, model);
-        String modelListPagePath = projectName + "/" + FilePaths.SRC_MAIN_RESOURCES_TEMPLATES_DIR;
         WriterService.writeData(modelListPageData,
-                FileNames.MODEL_LIST_NAME + FileTypes.HTML_TYPE, modelListPagePath);
+                model.toLowerCase() + FileNames.LIST_NAME + FileTypes.HTML_TYPE, modelPagesPath);
+
+        List<String> modelAddPageData = ModelAddAndEditPagesGeneratorService.generateModelAddAndEditPagesData(
+                ReaderService.readData(FileNames.MODEL_ADD_NAME + FileTypes.TXT_TYPE),
+                variables, projectName, groupId, model);
+        WriterService.writeData(modelAddPageData,
+                model.toLowerCase() + FileNames.ADD_NAME + FileTypes.HTML_TYPE, modelPagesPath);
+
+        List<String> modelEditPageData = ModelAddAndEditPagesGeneratorService.generateModelAddAndEditPagesData(
+                ReaderService.readData(FileNames.MODEL_EDIT_NAME + FileTypes.TXT_TYPE),
+                variables, projectName, groupId, model);
+        WriterService.writeData(modelEditPageData,
+                model.toLowerCase() + FileNames.EDIT_NAME + FileTypes.HTML_TYPE, modelPagesPath);
     }
 
 }

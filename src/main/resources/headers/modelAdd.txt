@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Add {Model}</title>
+</head>
+<body>
+<h1>Add {Model}</h1>
+<!--/*@thymesVar id="{model}" type="{groupId}.{projectName}.model.{Model}"*/-->
+<form th:action="@{/{model}}" method="post">
+    <table border="1">
+{variableTRs}
+    </table>
+    <input type="submit" value="Save">
+</form>
+</body>
+</html>

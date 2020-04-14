@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Edit {Model}</title>
+</head>
+<body>
+<h1>Edit {Model}</h1>
+<form th:action="@{/{model}}" method="post">
+    <table border="1">
+{variableTRs}
+        <input type="hidden" th:value="${{model}.id}" name="id">
+    </table>
+    <input type="submit" value="Save">
+</form>
+</body>
+</html>

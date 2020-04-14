@@ -5,7 +5,7 @@
 </head>
 <body>
 <h1>{Model} List</h1>
-<a th:href="@{/{model}/add}">Add New</a>
+<a th:href="@{/{model}/add}">Add</a>
 <table border="1">
     <thead>
     <tr>
