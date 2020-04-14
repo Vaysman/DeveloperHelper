@@ -38,6 +38,14 @@ public class GeneratorService {
                 groupIdParts[0] + "/" + groupIdParts[1] + "/" + projectName + "/" + FilePaths.REPOSITORY_DIR;
         WriterService.writeData(repositoryData,
                 model + FileNames.REPOSITORY_NAME + FileTypes.JAVA_TYPE, repositoryPath);
+
+        List<String> controllerData = ControllerGeneratorService.generateControllerData(
+                ReaderService.readData(FileNames.CONTROLLER_NAME + FileTypes.TXT_TYPE),
+                projectName, groupId, model);
+        String controllerPath = projectName + "/" + FilePaths.SRC_MAIN_JAVA_DIR +
+                groupIdParts[0] + "/" + groupIdParts[1] + "/" + projectName + "/" + FilePaths.CONTROLLER_DIR;
+        WriterService.writeData(controllerData,
+                model + FileNames.CONTROLLER_NAME + FileTypes.JAVA_TYPE, controllerPath);
     }
 
 }

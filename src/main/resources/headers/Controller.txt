@@ -1,0 +1,49 @@
+package {groupId}.{projectName}.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import {groupId}.{projectName}.model.{Model};
+import {groupId}.{projectName}.repository.{Model}Repository;
+
+import javax.validation.Valid;
+
+@Controller
+public class {Model}Controller {
+
+    @Autowired
+    private {Model}Repository {model}Repository;
+
+    @GetMapping("/{model}")
+    public String {model}List(Model model) {
+        model.addAttribute("{model}s", {model}Repository.findAll());
+        return "{model}List";
+    }
+
+    @GetMapping("/{model}/add")
+    public String {model}AddForm({Model} {model}) {
+        return "{model}Add";
+    }
+
+    @GetMapping("/{model}/{{model}}/edit")
+    public String {model}EditForm(@PathVariable {Model} {model}, Model model) {
+        model.addAttribute("{model}", {model});
+        return "{model}Edit";
+    }
+
+    @PostMapping("/{model}")
+    public String {model}Save(@Valid {Model} {model}) {
+        {model}Repository.save({model});
+        return "redirect:/{model}";
+    }
+
+    @GetMapping("/{model}/{{model}}/delete")
+    public String {model}Delete(@PathVariable {Model} {model}) {
+        {model}Repository.delete({model});
+        return "redirect:/{model}";
+    }
+}
