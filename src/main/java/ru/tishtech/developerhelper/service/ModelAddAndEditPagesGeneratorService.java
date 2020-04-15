@@ -7,13 +7,16 @@ import java.util.List;
 public class ModelAddAndEditPagesGeneratorService {
 
     public static List<String> generateModelAddAndEditPagesData(List<String> data, List<Variable> variables,
-                                                                String projectName, String groupId, String model) {
+                                                                String projectName, String groupId,
+                                                                String capitalModel, String smallModel) {
         String variableTRs = "";
         for (Variable variable : variables) {
+            String smallName = CorrectorService.toSmallString(variable.getName());
+            String capitalName = CorrectorService.toCapitalString(variable.getName());
             variableTRs += "\t\t<tr>\n" +
-                    "\t\t\t<th>" + variable.getName() + "</th>\n" +
-                    "\t\t\t<td><input type=\"text\" th:value=\"${" + model.toLowerCase() +
-                    "." + variable.getName() + "}\" name=\"" + variable.getName() + "\"></td>\n" +
+                    "\t\t\t<th>" + capitalName + "</th>\n" +
+                    "\t\t\t<td><input type=\"text\" th:value=\"${" + smallModel +
+                    "." + smallName + "}\" name=\"" + smallName + "\"></td>\n" +
                     "\t\t</tr>\n";
         }
         boolean groupIdWasFound = false;
@@ -29,9 +32,9 @@ public class ModelAddAndEditPagesGeneratorService {
                 projectNameWasFound = true;
             }
             if (data.get(i).contains("{Model}"))
-                data.set(i, data.get(i).replace("{Model}", model));
+                data.set(i, data.get(i).replace("{Model}", capitalModel));
             if (data.get(i).contains("{model}"))
-                data.set(i, data.get(i).replaceAll("\\{model}", model.toLowerCase()));
+                data.set(i, data.get(i).replaceAll("\\{model}", smallModel));
             if (!variableTRsWereFound && data.get(i).contains("{variableTRs}")) {
                 data.set(i, data.get(i).replace("{variableTRs}", variableTRs));
                 variableTRsWereFound = true;

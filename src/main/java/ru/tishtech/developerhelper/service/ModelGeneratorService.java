@@ -7,26 +7,26 @@ import java.util.List;
 public class ModelGeneratorService {
 
     public static List<String> generateModelData(List<String> data, List<Variable> variables,
-                                         String projectName, String groupId, String model) {
+                                         String projectName, String groupId, String capitalModel) {
         data.set(0, data.get(0).replace("{groupId}", groupId));
         data.set(0, data.get(0).replace("{projectName}", projectName));
         String variablesString = "";
         String gettersAndSettersString = "";
         for (Variable variable : variables) {
-            variablesString += "\tprivate " + variable.getType() + " " + variable.getName() + ";\n";
-            String capitalVariable = variable.getName().substring(0, 1).toUpperCase() +
-                    variable.getName().substring(1);
-            gettersAndSettersString += "\tpublic " + variable.getType() + " get" + capitalVariable + "() {\n" +
-                    "\t\treturn " + variable.getName() + ";\n" + "\t}\n\n";
-            gettersAndSettersString += "\tpublic void set" + capitalVariable + "(" + variable.getType() + " " + variable.getName() + ") {\n" +
-                    "\t\tthis." + variable.getName() + " = " + variable.getName() + ";\n" + "\t}\n\n";
+            String smallName = CorrectorService.toSmallString(variable.getName());
+            String capitalName = CorrectorService.toCapitalString(variable.getName());
+            variablesString += "\tprivate " + variable.getType() + " " + smallName + ";\n";
+            gettersAndSettersString += "\tpublic " + variable.getType() + " get" + capitalName + "() {\n" +
+                    "\t\treturn " + smallName + ";\n" + "\t}\n\n";
+            gettersAndSettersString += "\tpublic void set" + capitalName + "(" + variable.getType() + " " + smallName + ") {\n" +
+                    "\t\tthis." + smallName + " = " + smallName + ";\n" + "\t}\n\n";
         }
         boolean modelWasFound = false;
         boolean variablesWereFound = false;
         boolean gettersAndSettersWereFound = false;
         for (int i = 1; i < data.size(); i++) {
             if (!modelWasFound && data.get(i).contains("{Model}")) {
-                data.set(i, data.get(i).replace("{Model}", model));
+                data.set(i, data.get(i).replace("{Model}", capitalModel));
                 modelWasFound = true;
             } else if (!variablesWereFound && data.get(i).contains("{variables}")) {
                 data.set(i, data.get(i).replace("{variables}", variablesString));

@@ -29,7 +29,7 @@ public class MainController {
         List<Variable> variables = new ArrayList<>();
         variables.add(new Variable(name1, type1));
         variables.add(new Variable(name2, type2));
-        GeneratorService.generateFiles(projectName, groupId, model, variables);
+        GeneratorService.generateFiles(projectName.toLowerCase(), groupId.toLowerCase(), model, variables);
         return "done";
     }
 
