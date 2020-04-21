@@ -5,6 +5,9 @@ public class Variable {
     private String name;
     private String type;
 
+    public Variable() {
+    }
+
     public Variable(String name, String type) {
         this.name = name;
         this.type = type;

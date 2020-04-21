@@ -5,15 +5,43 @@
     <title>Hello!</title>
 </head>
 <body>
-<form th:action="@{/}" method="post">
-    <input type="text" name="projectName" placeholder="projectName">
-    <input type="text" name="groupId" placeholder="groupId">
-    <input type="text" name="model" placeholder="Model">
-    <input type="text" name="name1" placeholder="name1">
-    <input type="text" name="type1" placeholder="type1">
-    <input type="text" name="name2" placeholder="name2">
-    <input type="text" name="type2" placeholder="type2">
-    <input type="submit" value="Generate!">
+<form th:action="@{/}" th:object="${variableStore}" method="post">
+    <table border="0">
+        <tr>
+            <th>ProjectName</th>
+            <td><input type="text" name="projectName" placeholder="for example, myproject"></td>
+        </tr>
+        <tr>
+            <th>GroupId</th>
+            <td><input type="text" name="groupId" placeholder="for example, com.mysite"></td>
+        </tr>
+        <tr>
+            <th>Model</th>
+            <td><input type="text" name="model" placeholder="for example, user"></td>
+        </tr>
+    </table>
+    <h4>Variables:</h4>
+    <button type="submit" name="addVariable">Add Variable</button>
+    <br>
+    <br>
+    <table>
+        <tr th:each="variable, variableStat : *{variables}">
+            <td>
+                <select th:field="*{variables[__${variableStat.index}__].type}">
+                    <option th:each="variableType : ${variableTypes}"
+                            th:value="${variableType}"
+                            th:text="${variableType}">
+                    </option>
+                </select>
+            </td>
+            <td><input type="text" th:field="*{variables[__${variableStat.index}__].name}" placeholder="Enter name"></td>
+            <td>
+                <button type="submit" name="removeVariable" th:value="${variableStat.index}">Remove Variable</button>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <button type="submit">Generate!</button>
 </form>
 </body>
 </html>

@@ -10,7 +10,7 @@
 {variableTRs}
         <input type="hidden" th:value="${{model}.id}" name="id">
     </table>
-    <input type="submit" value="Save">
+    <button type="submit">Save</button>
 </form>
 </body>
 </html>

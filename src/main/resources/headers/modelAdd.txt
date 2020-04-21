@@ -10,7 +10,7 @@
     <table border="1">
 {variableTRs}
     </table>
-    <input type="submit" value="Save">
+    <button type="submit">Save</button>
 </form>
 </body>
 </html>
