@@ -68,6 +68,12 @@ public class GeneratorService {
                 variables, projectName, groupId, capitalModel, smallModel);
         WriterService.writeData(modelEditPageData,
                 smallModel + FileNames.EDIT_NAME + FileTypes.HTML_TYPE, modelPagesPath);
+
+        List<String> applicationPropsData = ReaderService.readData(
+                FileNames.APPLICATION_PROPS_NAME + FileTypes.TXT_TYPE);
+        String applicationPropsPath = projectName + "/" + FilePaths.SRC_MAIN_RESOURCES_DIR;
+        WriterService.writeData(applicationPropsData,
+                FileNames.SMALL_APPLICATION_NAME + FileTypes.PROPERTIES_TYPE, applicationPropsPath);
     }
 
 }

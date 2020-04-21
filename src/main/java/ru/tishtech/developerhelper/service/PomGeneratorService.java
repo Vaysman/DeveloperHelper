@@ -7,14 +7,6 @@ public class PomGeneratorService {
 
     public static List<String> generatePomData(List<String> data, String projectName, String groupId) {
         List<String> dependencies = new ArrayList<>();
-        dependencies.add("<dependency>\n" +
-                "    <groupId>org.springframework.boot</groupId>\n" +
-                "    <artifactId>spring-boot-starter-thymeleaf</artifactId>\n" +
-                "</dependency>\n");
-        dependencies.add("<dependency>\n" +
-                "    <groupId>org.springframework.boot</groupId>\n" +
-                "    <artifactId>spring-boot-starter-web</artifactId>\n" +
-                "</dependency>\n");
         String dependenciesString = "";
         for (String dependency : dependencies) {
             dependenciesString += dependency;
