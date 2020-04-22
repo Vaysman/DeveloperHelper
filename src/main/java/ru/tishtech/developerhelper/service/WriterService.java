@@ -11,7 +11,7 @@ import java.util.List;
 public class WriterService {
 
     public static void writeData(List<String> data, String fileName, String folder) {
-        File filePath = new File(FilePaths.FILES_TO_DIR + folder);
+        File filePath = new File(folder);
         if (!filePath.exists()) {
             filePath.mkdirs();
         }

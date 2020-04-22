@@ -7,4 +7,5 @@ public class FileTypes {
     public static final String JAVA_TYPE = ".java";
     public static final String HTML_TYPE = ".html";
     public static final String PROPERTIES_TYPE = ".properties";
+    public static final String ZIP_TYPE = ".zip";
 }
