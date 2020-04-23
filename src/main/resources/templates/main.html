@@ -10,14 +10,17 @@
         <tr>
             <th>ProjectName</th>
             <td><input type="text" th:field="*{name}" placeholder="for example, myproject"></td>
+            <td style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></td>
         </tr>
         <tr>
             <th>GroupId</th>
             <td><input type="text" th:field="*{groupId}" placeholder="for example, com.mysite"></td>
+            <td style="color: red" th:if="${#fields.hasErrors('groupId')}" th:errors="*{groupId}"></td>
         </tr>
         <tr>
             <th>Model</th>
             <td><input type="text" th:field="*{model}" placeholder="for example, user"></td>
+            <td style="color: red" th:if="${#fields.hasErrors('model')}" th:errors="*{model}"></td>
         </tr>
     </table>
     <h4>Variables:</h4>

@@ -4,6 +4,7 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.tishtech.developerhelper.constants.FileTypes;
 import ru.tishtech.developerhelper.constants.VariableTypes;
@@ -13,6 +14,7 @@ import ru.tishtech.developerhelper.service.generator.GeneratorService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -47,11 +49,16 @@ public class GeneratorController {
     }
 
     @PostMapping
-    public String generate(@ModelAttribute Project project, HttpServletRequest request, Model model) {
-        project.setPath(request.getServletContext().getRealPath(""));
-        GeneratorService.generateFiles(project.getName(), project.getGroupId(), project.getModel(),
-                project.getVariables(), project.getPath());
-        model.addAttribute("project", project);
+    public String generate(@Valid Project project, BindingResult bindingResult,
+                           HttpServletRequest request, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "main";
+        } else {
+            project.setPath(request.getServletContext().getRealPath(""));
+            GeneratorService.generateFiles(project.getName(), project.getGroupId(), project.getModel(),
+                    project.getVariables(), project.getPath());
+            model.addAttribute("project", project);
+        }
         return "done";
     }
 

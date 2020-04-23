@@ -1,13 +1,21 @@
 package ru.tishtech.developerhelper.model;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Project {
 
+    @Size(min = 1, message = "is required")
     private String name;
+
+    @Size(min = 1, message = "is required")
     private String groupId;
+
+    @Size(min = 1, message = "is required")
     private String model;
+
     private String path;
     private List<Variable> variables = new ArrayList<>();
 
