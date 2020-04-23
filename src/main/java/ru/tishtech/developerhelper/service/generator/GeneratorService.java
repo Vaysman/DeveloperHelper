@@ -1,10 +1,13 @@
-package ru.tishtech.developerhelper.service;
+package ru.tishtech.developerhelper.service.generator;
 
 import org.apache.commons.io.FileUtils;
 import ru.tishtech.developerhelper.constants.FileNames;
 import ru.tishtech.developerhelper.constants.FilePaths;
 import ru.tishtech.developerhelper.constants.FileTypes;
 import ru.tishtech.developerhelper.model.Variable;
+import ru.tishtech.developerhelper.service.CorrectorService;
+import ru.tishtech.developerhelper.service.ReaderService;
+import ru.tishtech.developerhelper.service.WriterService;
 import ru.tishtech.developerhelper.util.ZipUtil;
 
 import java.io.File;

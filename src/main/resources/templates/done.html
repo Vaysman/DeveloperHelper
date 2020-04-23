@@ -6,6 +6,10 @@
 </head>
 <body>
 <h1>Done!</h1>
-<h2><a th:href="@{/generator/download}">Download</a></h2>
+<form th:action="@{/generator/download}" method="get">
+    <input type="hidden" name="projectName" th:value="${project.name}">
+    <input type="hidden" name="projectPath" th:value="${project.path}">
+    <button type="submit">Download</button>
+</form>
 </body>
 </html>

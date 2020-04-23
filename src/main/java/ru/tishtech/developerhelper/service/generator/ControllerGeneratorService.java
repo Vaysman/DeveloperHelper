@@ -1,4 +1,4 @@
-package ru.tishtech.developerhelper.service;
+package ru.tishtech.developerhelper.service.generator;
 
 import java.util.List;
 

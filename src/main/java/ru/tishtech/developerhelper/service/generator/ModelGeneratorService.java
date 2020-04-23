@@ -1,6 +1,7 @@
-package ru.tishtech.developerhelper.service;
+package ru.tishtech.developerhelper.service.generator;
 
 import ru.tishtech.developerhelper.model.Variable;
+import ru.tishtech.developerhelper.service.CorrectorService;
 
 import java.util.List;
 

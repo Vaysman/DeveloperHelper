@@ -5,19 +5,19 @@
     <title>Hello!</title>
 </head>
 <body>
-<form th:action="@{/generator}" th:object="${variableStore}" method="post">
+<form th:action="@{/generator}" th:object="${project}" method="post">
     <table border="0">
         <tr>
             <th>ProjectName</th>
-            <td><input type="text" name="projectName" placeholder="for example, myproject"></td>
+            <td><input type="text" th:field="*{name}" placeholder="for example, myproject"></td>
         </tr>
         <tr>
             <th>GroupId</th>
-            <td><input type="text" name="groupId" placeholder="for example, com.mysite"></td>
+            <td><input type="text" th:field="*{groupId}" placeholder="for example, com.mysite"></td>
         </tr>
         <tr>
             <th>Model</th>
-            <td><input type="text" name="model" placeholder="for example, user"></td>
+            <td><input type="text" th:field="*{model}" placeholder="for example, user"></td>
         </tr>
     </table>
     <h4>Variables:</h4>
