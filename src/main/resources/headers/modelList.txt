@@ -10,14 +10,15 @@
     <thead>
     <tr>
 {variableTHeads}
+    <th>Actions</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="{model}: ${{model}s}">
 {variableTDs}
         <td>
-            <a th:href="@{'/{model}/' + ${{model}.id} + '/edit'}"</a>
-            <a th:href="@{'/{model}/' + ${{model}.id} + '/delete'}"</a>
+            <a th:href="@{'/{model}/' + ${{model}.id} + '/edit'}">Edit</a>
+            <a th:href="@{'/{model}/' + ${{model}.id} + '/delete'}">Delete</a>
         </td>
     </tr>
     </tbody>

@@ -68,13 +68,13 @@ public class GeneratorService {
 
         List<String> modelAddPageData = ModelAddAndEditPagesGeneratorService.generateModelAddAndEditPagesData(
                 ReaderService.readData(FileNames.MODEL_ADD_NAME + FileTypes.TXT_TYPE),
-                variables, projectName, groupId, capitalModel, smallModel);
+                variables, capitalModel, smallModel);
         WriterService.writeData(modelAddPageData,
                 smallModel + FileNames.ADD_NAME + FileTypes.HTML_TYPE, modelPagesPath);
 
         List<String> modelEditPageData = ModelAddAndEditPagesGeneratorService.generateModelAddAndEditPagesData(
                 ReaderService.readData(FileNames.MODEL_EDIT_NAME + FileTypes.TXT_TYPE),
-                variables, projectName, groupId, capitalModel, smallModel);
+                variables, capitalModel, smallModel);
         WriterService.writeData(modelEditPageData,
                 smallModel + FileNames.EDIT_NAME + FileTypes.HTML_TYPE, modelPagesPath);
 

@@ -5,10 +5,10 @@
 </head>
 <body>
 <h1>Edit {Model}</h1>
-<form th:action="@{/{model}}" method="post">
+<form th:action="@{/{model}}" th:object="${{model}}" method="post">
     <table border="1">
 {variableTRs}
-        <input type="hidden" th:value="${{model}.id}" name="id">
+        <input type="hidden" th:field="*{id}">
     </table>
     <button type="submit">Save</button>
 </form>

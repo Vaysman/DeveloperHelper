@@ -5,8 +5,7 @@
 </head>
 <body>
 <h1>Add {Model}</h1>
-<!--/*@thymesVar id="{model}" type="{groupId}.{projectName}.model.{Model}"*/-->
-<form th:action="@{/{model}}" method="post">
+<form th:action="@{/{model}}" th:object="${{model}}" method="post">
     <table border="1">
 {variableTRs}
     </table>

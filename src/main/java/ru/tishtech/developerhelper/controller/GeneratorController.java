@@ -30,8 +30,7 @@ public class GeneratorController {
 
     @GetMapping
     public String generatorPage(Model model) {
-        Project project = new Project();
-        model.addAttribute("project", project);
+        model.addAttribute("project", new Project());
         return "main";
     }
 
