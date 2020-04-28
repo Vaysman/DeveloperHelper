@@ -1,11 +1,16 @@
 package ru.tishtech.developerhelper.model;
 
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Project {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @Size(min = 1, message = "is required")
     private String name;
@@ -16,8 +21,21 @@ public class Project {
     @Size(min = 1, message = "is required")
     private String model;
 
-    private String path;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "project_id")
     private List<Variable> variables = new ArrayList<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -43,12 +61,12 @@ public class Project {
         this.model = model;
     }
 
-    public String getPath() {
-        return path;
+    public User getUser() {
+        return user;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public List<Variable> getVariables() {

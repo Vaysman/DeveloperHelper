@@ -6,9 +6,8 @@
 </head>
 <body>
 <h1>Done!</h1>
-<form th:action="@{/generator/download}" method="get">
-    <input type="hidden" name="projectName" th:value="${project.name}">
-    <input type="hidden" name="projectPath" th:value="${project.path}">
+<form th:action="@{'/user/' + ${userId} + '/project/' + ${project.id} + '/download'}" method="get">
+    <input type="hidden" name="projectPath" th:value="${projectPath}">
     <button type="submit">Download</button>
 </form>
 </body>

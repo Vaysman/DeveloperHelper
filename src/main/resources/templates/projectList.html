@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Project List</title>
+</head>
+<body>
+<h1>Project List</h1>
+<a th:href="@{'/user/' + ${userId} + '/project/add'}">Add Project</a>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>GroupId</th>
+        <th>Model</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="project: ${projects}">
+        <td th:text="${project.name}"></td>
+        <td th:text="${project.groupId}"></td>
+        <td th:text="${project.model}"></td>
+        <td>
+            <a th:href="@{'/user/' + ${userId} + '/project/' + ${project.id} + '/view'}">View</a>
+            <a th:href="@{'/user/' + ${userId} + '/project/' + ${project.id} + '/edit'}">Edit</a>
+            <a th:href="@{'/user/' + ${userId} + '/project/' + ${project.id} + '/delete'}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

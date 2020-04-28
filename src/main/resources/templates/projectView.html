@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Project View</title>
+</head>
+<body>
+<h1>Project View</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>GroupId</th>
+        <th>Model</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${project.name}"></td>
+        <td th:text="${project.groupId}"></td>
+        <td th:text="${project.model}"></td>
+    </tr>
+    </tbody>
+</table>
+<h4>Variables:</h4>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Type</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="variable : ${project.variables}">
+        <td th:text="${variable.type}"></td>
+        <td th:text="${variable.name}"></td>
+    </tr>
+    </tbody>
+</table>
+<a th:href="@{'/user/' + ${userId} + '/project/' + ${project.id} + '/generate'}">Generate</a>
+<a th:href="@{'/user/' + ${userId} + '/project/' + ${project.id} + '/edit'}">Edit</a>
+<a th:href="@{'/user/' + ${userId} + '/project/' + ${project.id} + '/delete'}">Delete</a>
+</body>
+</html>

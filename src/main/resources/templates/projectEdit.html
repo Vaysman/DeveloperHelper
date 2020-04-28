@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Edit Project</title>
+</head>
+<body>
+<h1>Edit Project</h1>
+<form th:action="@{'/user/' + ${userId} + '/project'}" th:object="${project}" method="post">
+    <table border="0">
+        <tr>
+            <th>Name</th>
+            <td><input type="text" th:field="*{name}"></td>
+        </tr>
+        <tr>
+            <th>GroupId</th>
+            <td><input type="text" th:field="*{groupId}"></td>
+        </tr>
+        <tr>
+            <th>Model</th>
+            <td><input type="text" th:field="*{model}"></td>
+        </tr>
+    </table>
+    <h4>Variables:</h4>
+    <button type="submit" name="addVariable">Add Variable</button>
+    <br>
+    <br>
+    <table>
+        <tr th:each="variable, variableStat : ${project.variables}">
+            <td><input type="text" th:field="*{variables[__${variableStat.index}__].type}"></td>
+            <td><input type="text" th:field="*{variables[__${variableStat.index}__].name}"></td>
+            <td>
+                <button type="submit" name="removeVariable" th:value="${variableStat.index}">Remove Variable</button>
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" th:field="*{id}">
+    <button type="submit">Save</button>
+</form>
+</body>
+</html>

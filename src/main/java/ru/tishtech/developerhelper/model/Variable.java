@@ -1,16 +1,22 @@
 package ru.tishtech.developerhelper.model;
 
+import javax.persistence.*;
+
+@Entity
 public class Variable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String name;
     private String type;
 
-    public Variable() {
+    public Long getId() {
+        return id;
     }
 
-    public Variable(String name, String type) {
-        this.name = name;
-        this.type = type;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

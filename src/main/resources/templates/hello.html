@@ -5,6 +5,7 @@
 </head>
 <body>
 <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+<h2><a th:href="@{/user/2/project}">Project List</a></h2>
 <h2><a th:href="@{/generator}">Generator Page</a></h2>
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>
