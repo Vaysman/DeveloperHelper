@@ -6,9 +6,27 @@
 <body>
     <h1>Sign up</h1>
     <form th:action="@{/registration}" th:object="${user}" method="post">
-        <input type="text" th:field="*{username}" placeholder="Username"/>
-        <input type="email" th:field="*{email}" placeholder="Email"/>
-        <input type="password" th:field="*{password}" placeholder="Password"/>
+        <table>
+            <tr>
+                <td><input type="text" th:field="*{username}" placeholder="Username"/></td>
+                <td style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></td>
+            </tr>
+            <tr>
+                <td><input type="email" th:field="*{email}" placeholder="Email"/></td>
+                <td style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></td>
+            </tr>
+            <tr>
+                <td><input type="password" th:field="*{password}" placeholder="Password"/></td>
+                <td style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></td>
+            </tr>
+            <tr>
+                <td><input type="password" th:field="*{confirmPassword}" placeholder="Confirm password"/></td>
+                <td style="color: red" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></td>
+            </tr>
+            <tr>
+                <td style="color: red" th:text="${passwordError}"></td>
+            </tr>
+        </table>
         <button type="submit">Sign up</button>
     </form>
 </body>
