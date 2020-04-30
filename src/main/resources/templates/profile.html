@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Profile</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>Username:</th>
+        <td th:text="${user.username}"></td>
+    </tr>
+</table>
+<a th:href="@{'/user/' + ${user.id} + '/profile/editpassword'}">Change Password</a>
+</body>
+</html>

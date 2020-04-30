@@ -5,9 +5,10 @@
 </head>
 <body>
     <h1>Sign up</h1>
-    <form th:action="@{/registration}" method="post">
-        <input type="text" name="username" placeholder="User name"/>
-        <input type="password" name="password" placeholder="Password"/>
+    <form th:action="@{/registration}" th:object="${user}" method="post">
+        <input type="text" th:field="*{username}" placeholder="Username"/>
+        <input type="email" th:field="*{email}" placeholder="Email"/>
+        <input type="password" th:field="*{password}" placeholder="Password"/>
         <button type="submit">Sign up</button>
     </form>
 </body>

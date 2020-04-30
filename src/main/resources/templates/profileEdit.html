@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Edit Profile</title>
+</head>
+<body>
+<form th:action="@{'/user/' + ${user.id} + '/profile'}" th:object="${user}" method="post">
+    <table>
+        <tr>
+            <th>Username:</th>
+            <td><input type="text" th:field="*{username}"></td>
+        </tr>
+    </table>
+    <button type="submit">Save</button>
+</form>
+</body>
+</html>
