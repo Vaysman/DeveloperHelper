@@ -13,7 +13,9 @@ import ru.tishtech.developerhelper.repository.UserRepository;
 import ru.tishtech.developerhelper.service.UserService;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 @Controller
 public class RegistrationController {
@@ -29,13 +31,14 @@ public class RegistrationController {
 
     @PostMapping("/registration")
     public String userSave(@Valid User user, BindingResult bindingResult, Model model) {
-        if (user.getPassword() != null && !user.getPassword().equals(user.getConfirmPassword())) {
-            model.addAttribute("passwordError", "Passwords are different!");
+        List<String> validationErrors = userService.getValidationErrors(user, bindingResult);
+        if (validationErrors.size() > 0) {
+            model.addAttribute("validationErrors", validationErrors);
             return "registration";
+        } else {
+            userService.userSave(user);
+            return "redirect:/login";
         }
-        if (bindingResult.hasErrors()) return "registration";
-        if (!userService.userSave(user)) return "registration";
-        else return "redirect:/login";
     }
 
     @GetMapping("/activate/{activationCode}")

@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -19,18 +20,21 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank(message = "is required")
+    @NotBlank(message = "Username is required!")
     private String username;
 
-    @NotBlank(message = "is required")
-    @Email
+    @NotBlank(message = "Email is required!")
+    @Email(message = "Email is not correct!")
     private String email;
 
-    @NotBlank(message = "is required")
+    @NotBlank(message = "Password is required!")
+    @Pattern(regexp = "((?=.*[a-z])(?=.*d)(?=.*[@#$%])(?=.*[A-Z]).{8,16})",
+             message = "Password must have at least one lowercase letter, one uppercase letter, " +
+                       "one digit, one special character and be 8 to 16 characters long!")
     private String password;
 
     @Transient
-    @NotBlank(message = "is required")
+    @NotBlank(message = "Password confirmation is required!")
     private String confirmPassword;
 
     private boolean active;

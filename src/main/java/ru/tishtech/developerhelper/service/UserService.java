@@ -7,11 +7,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import ru.tishtech.developerhelper.model.Role;
 import ru.tishtech.developerhelper.model.User;
 import ru.tishtech.developerhelper.repository.UserRepository;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -33,11 +36,7 @@ public class UserService implements UserDetailsService {
         else return null;
     }
 
-    public boolean userSave(User user) {
-        User userFromDatabase = userRepository.findByUsername(user.getUsername());
-        if (userFromDatabase != null) {
-            return false;
-        }
+    public void userSave(User user) {
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
         user.setActivationCode(UUID.randomUUID().toString());
@@ -50,7 +49,6 @@ public class UserService implements UserDetailsService {
                     "http://localhost:8080/activate/" + user.getActivationCode();
             mailService.send(user.getEmail(), "Activation Code", text);
         }
-        return true;
     }
 
     public boolean userActivate(String activationCode) {
@@ -59,5 +57,23 @@ public class UserService implements UserDetailsService {
         user.setActivationCode(null);
         userRepository.save(user);
         return true;
+    }
+
+    public List<String> getValidationErrors(User user, BindingResult bindingResult) {
+        List<String> errors = new ArrayList<>();
+        if (bindingResult.hasErrors()) {
+            errors.add("");
+            return errors;
+        }
+        if (userRepository.findByUsername(user.getUsername()) != null) {
+            errors.add("A user is already registered with this username!");
+        }
+        if (userRepository.findByEmail(user.getEmail()) != null) {
+            errors.add("A user is already registered with this email address!");
+        }
+        if (!user.getPassword().equals(user.getConfirmPassword())) {
+            errors.add("Passwords are different!");
+        }
+        return errors;
     }
 }
