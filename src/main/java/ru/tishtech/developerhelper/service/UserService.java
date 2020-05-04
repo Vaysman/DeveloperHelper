@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -59,21 +60,33 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
-    public List<String> getValidationErrors(User user, BindingResult bindingResult) {
-        List<String> errors = new ArrayList<>();
+    public List<String> getValidationErrors(User user, BindingResult bindingResult, String confirmPassword) {
+        List<String> validationErrors = new ArrayList<>();
         if (bindingResult.hasErrors()) {
-            errors.add("");
-            return errors;
+            validationErrors.add("");
+            return validationErrors;
         }
-        if (userRepository.findByUsername(user.getUsername()) != null) {
-            errors.add("A user is already registered with this username!");
+        User userByUsername = userRepository.findByUsername(user.getUsername());
+        if (userByUsername != null && userByUsername.getActivationCode() == null) {
+            validationErrors.add("A user is already registered with this username!");
         }
-        if (userRepository.findByEmail(user.getEmail()) != null) {
-            errors.add("A user is already registered with this email address!");
+        User userByEmail = userRepository.findByEmail(user.getEmail());
+        if (userByEmail != null && userByEmail.getActivationCode() == null) {
+            validationErrors.add("A user is already registered with this email address!");
         }
-        if (!user.getPassword().equals(user.getConfirmPassword())) {
-            errors.add("Passwords are different!");
+        if (!user.getPassword().equals(confirmPassword)) {
+            validationErrors.add("Passwords are different!");
         }
-        return errors;
+        if (!passwordIsValid(user.getPassword())) {
+            validationErrors.add("Password must have at least one lowercase letter, " +
+                                 "one uppercase letter, one digit, one special character " +
+                                 "and be 8 to 16 characters long! All letters must be latin!");
+        }
+        return validationErrors;
+    }
+
+    private boolean passwordIsValid(String password) {
+        Pattern pattern = Pattern.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,16})");
+        return pattern.matcher(password).matches();
     }
 }

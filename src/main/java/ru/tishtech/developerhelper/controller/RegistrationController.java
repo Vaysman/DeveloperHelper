@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.tishtech.developerhelper.model.Role;
 import ru.tishtech.developerhelper.model.User;
 import ru.tishtech.developerhelper.repository.UserRepository;
@@ -30,10 +31,14 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String userSave(@Valid User user, BindingResult bindingResult, Model model) {
-        List<String> validationErrors = userService.getValidationErrors(user, bindingResult);
-        if (validationErrors.size() > 0) {
+    public String userSave(@RequestParam String confirmPassword,
+                           @Valid User user, BindingResult bindingResult,
+                           Model model) {
+        List<String> validationErrors = userService.getValidationErrors(user, bindingResult, confirmPassword);
+        if (!validationErrors.isEmpty()) {
+            boolean zeroElementHasSize = !validationErrors.get(0).isEmpty();
             model.addAttribute("validationErrors", validationErrors);
+            model.addAttribute("zeroElementHasSize", zeroElementHasSize);
             return "registration";
         } else {
             userService.userSave(user);

@@ -9,7 +9,7 @@
         <ul>
             <li style="color: red" th:each="error : ${#fields.errors('*')}" th:text="${error}"></li>
         </ul>
-        <ul th:if="${validationErrors}">
+        <ul th:if="${zeroElementHasSize}">
             <li style="color: red" th:each="validationError : ${validationErrors}" th:text="${validationError}"></li>
         </ul>
         <table>
@@ -23,7 +23,7 @@
                 <td><input type="password" th:field="*{password}" placeholder="Password"/></td>
             </tr>
             <tr>
-                <td><input type="password" th:field="*{confirmPassword}" placeholder="Confirm password"/></td>
+                <td><input type="password" name="confirmPassword" placeholder="Confirm password"/></td>
             </tr>
         </table>
         <button type="submit">Sign up</button>

@@ -28,14 +28,7 @@ public class User implements UserDetails {
     private String email;
 
     @NotBlank(message = "Password is required!")
-    @Pattern(regexp = "((?=.*[a-z])(?=.*d)(?=.*[@#$%])(?=.*[A-Z]).{8,16})",
-             message = "Password must have at least one lowercase letter, one uppercase letter, " +
-                       "one digit, one special character and be 8 to 16 characters long!")
     private String password;
-
-    @Transient
-    @NotBlank(message = "Password confirmation is required!")
-    private String confirmPassword;
 
     private boolean active;
     private String activationCode;
@@ -78,14 +71,6 @@ public class User implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
     }
 
     public boolean isActive() {
