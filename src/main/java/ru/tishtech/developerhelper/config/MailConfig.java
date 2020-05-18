@@ -29,8 +29,8 @@ public class MailConfig {
     @Value("${mail.debug}")
     private String debug;
 
-    @Bean("javaMailSender")
-    public JavaMailSender getJavaMailSender() {
+    @Bean
+    public JavaMailSender javaMailSender() {
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
         javaMailSender.setHost(host);
         javaMailSender.setPort(port);
