@@ -5,7 +5,7 @@
 </head>
 <body>
 <h1>Add Project</h1>
-<form th:action="@{'/user/' + ${userId} + '/project'}" th:object="${project}" method="post">
+<form th:action="@{'/user/' + ${user.id} + '/project'}" th:object="${project}" method="post">
     <table border="0">
         <tr>
             <th>Name</th>

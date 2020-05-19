@@ -30,8 +30,7 @@ public class ProjectController {
     @GetMapping("/{user}/project")
     public String projectList(@AuthenticationPrincipal User currentUser, @PathVariable User user, Model model) {
         if (currentUser.equals(user)) {
-            model.addAttribute("userId", user.getId());
-            model.addAttribute("projects", user.getProjects());
+            model.addAttribute("user", user);
             return "projectList";
         } else {
             return "accessError";
@@ -42,7 +41,7 @@ public class ProjectController {
     public String projectViewPage(@AuthenticationPrincipal User currentUser, @PathVariable User user,
                                   @PathVariable Project project, Model model) {
         if (currentUser.equals(user)) {
-            model.addAttribute("userId", user.getId());
+            model.addAttribute("user", user);
             model.addAttribute("project", project);
             return "projectView";
         } else {
@@ -53,7 +52,7 @@ public class ProjectController {
     @GetMapping("/{user}/project/add")
     public String projectAddPage(@AuthenticationPrincipal User currentUser, @PathVariable User user, Model model) {
         if (currentUser.equals(user)) {
-            model.addAttribute("userId", user.getId());
+            model.addAttribute("user", user);
             model.addAttribute("project", new Project());
             return "projectAdd";
         } else {
@@ -65,7 +64,7 @@ public class ProjectController {
     public String projectEditPage(@AuthenticationPrincipal User currentUser, @PathVariable User user,
                                   @PathVariable Project project, Model model) {
         if (currentUser.equals(user)) {
-            model.addAttribute("userId", user.getId());
+            model.addAttribute("user", user);
             model.addAttribute("project", project);
             return "projectEdit";
         } else {
@@ -78,7 +77,7 @@ public class ProjectController {
                               Project project, Model model) {
         if (currentUser.equals(user)) {
             project.getVariables().add(new Variable());
-            model.addAttribute("userId", user.getId());
+            model.addAttribute("user", user);
             if (project.getId() == null) return "projectAdd";
             else return "projectEdit";
         } else {
@@ -92,7 +91,7 @@ public class ProjectController {
         if (currentUser.equals(user)) {
             int variableId = Integer.parseInt(removeVariable);
             project.getVariables().remove(variableId);
-            model.addAttribute("userId", user.getId());
+            model.addAttribute("user", user);
             if (project.getId() == null) return "projectAdd";
             else return "projectEdit";
         } else {
@@ -129,7 +128,7 @@ public class ProjectController {
             String projectPath = request.getServletContext().getRealPath("/");
             GeneratorService.generateFiles(project.getName(), project.getGroupId(), project.getModel(),
                     project.getVariables(), projectPath);
-            model.addAttribute("userId", user.getId());
+            model.addAttribute("user", user);
             model.addAttribute("project", project);
             model.addAttribute("projectPath", projectPath);
             return "done";

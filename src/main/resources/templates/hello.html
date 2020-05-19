@@ -23,7 +23,12 @@
             <a class="btn btn-success btn-block" th:href="@{/doc}">Get started</a>
             <br>
             <br>
-            <a class="btn btn-secondary btn-block" th:href="@{'/user/' + ${user.id} + '/project'}">Donate</a>
+            <a class="btn btn-warning btn-block" th:href="@{'/user/' + ${user.id} + '/project'}">Donate</a>
+            <br>
+            <br>
+            <form th:href="@{/logout}" method="post">
+                <button class="btn btn-danger btn-block" type="submit">Sign out</button>
+            </form>
         </div>
     </div>
 </div>
