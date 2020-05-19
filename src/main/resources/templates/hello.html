@@ -1,14 +1,31 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html class="h-100" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>Hello World!</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css"  th:href="@{/static/css/bootstrap.css}">
+    <title>Hello</title>
 </head>
-<body>
-<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-<h2><a th:href="@{/user/2/project}">Project List</a></h2>
-<h2><a th:href="@{/generator}">Generator Page</a></h2>
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Sign Out"/>
-</form>
+<body class="h-100">
+<div class="container h-100">
+    <br>
+    <br>
+    <br>
+    <div class="row h-25 justify-content-center">
+        <h1 th:text="'Hello, ' + ${user.username} + '!'"></h1>
+    </div>
+    <div class="row h-50 justify-content-center align-items-center">
+        <div class="col-8 col-md-6 col-lg-4">
+            <a class="btn btn-primary btn-block" th:href="@{'/user/' + ${user.id} + '/project'}">My projects</a>
+            <br>
+            <br>
+            <a class="btn btn-success btn-block" th:href="@{/doc}">Get started</a>
+            <br>
+            <br>
+            <a class="btn btn-secondary btn-block" th:href="@{'/user/' + ${user.id} + '/project'}">Donate</a>
+        </div>
+    </div>
+</div>
 </body>
 </html>

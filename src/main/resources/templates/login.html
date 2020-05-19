@@ -13,7 +13,9 @@
         <div class="col-5 col-md-4 col-lg-3">
             <div style="color: red" th:if="${param.error}">Invalid username or password</div>
             <div th:if="${param.logout}">You have been logged out</div>
-            <h2 th:text="${activationResult}"></h2>
+            <div class="text-center">
+                <h3 th:text="${activationResult}"></h3>
+            </div>
             <form th:action="@{/login}" method="post">
                 <div class="text-center">
                     <h1>Sign in</h1>
@@ -28,9 +30,8 @@
                     <input class="form-control" id="password" type="password" name="password" placeholder="Enter password"/>
                 </div>
                 <button class="btn btn-primary btn-block" type="submit">Sign in</button>
-                <div class="text-center">
-                    <h3>or</h3>
-                </div>
+                <br>
+                <br>
                 <a class="btn btn-success btn-block" th:href="@{/registration}">Create account</a>
             </form>
         </div>

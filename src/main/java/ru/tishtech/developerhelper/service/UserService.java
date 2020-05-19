@@ -46,8 +46,9 @@ public class UserService implements UserDetailsService {
         if (!StringUtils.isEmpty(user.getEmail())) {
             String text = "Hello, " + user.getUsername() + "!\n" +
                     "Welcome to DeveloperHelper!\n" +
-                    "Please, visit next link to confirm your email: " +
-                    "http://localhost:8080/activate/" + user.getActivationCode();
+                    "Please, click " +
+                    "<a href=\"http://localhost:8080/activate/" + user.getActivationCode() + "\">here</a> " +
+                    "to confirm your email";
             mailService.send(user.getEmail(), "Activation Code", text);
         }
     }
