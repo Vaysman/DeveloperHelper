@@ -9,13 +9,26 @@
     <title>Edit project</title>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" th:href="@{'/user/' + ${user.id} + '/project'}">TishTech</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="btn btn-primary mr-2" th:href="@{'/user/' + ${user.id} + '/project/add'}">Create project</a>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-success" th:href="@{/doc}">Get started</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0" th:href="@{/logout}" method="post">
+            <a style="color: white" class="mr-2" th:href="@{'/user/' + ${user.id} + '/profile'}" th:text="${user.username}"></a>
+            <a class="btn btn-warning mr-2" th:href="@{/donate}">Donate</a>
+            <button class="btn btn-danger my-2 my-sm-0" type="submit">Sign out</button>
+        </form>
+    </div>
+</nav>
 <div class="container">
     <br>
-    <div class="row">
-        <div class="col">
-            <a class="btn btn-dark btn-lg" th:href="@{'/user/' + ${user.id} + '/project'}">TishTech</a>
-        </div>
-    </div>
     <div class="row">
         <div class="col">
             <h1 class="text-center">Edit project</h1>
