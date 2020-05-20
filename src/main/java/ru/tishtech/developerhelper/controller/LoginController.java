@@ -9,19 +9,18 @@ import ru.tishtech.developerhelper.model.User;
 @Controller
 public class LoginController {
 
-    @GetMapping(value = {"/", "/home"})
-    public String homePage() {
-        return "home";
-    }
-
     @GetMapping("/login")
     public String loginPage() {
         return "login";
     }
 
-    @GetMapping("/hello")
-    public String helloPage(@AuthenticationPrincipal User currentUser, Model model) {
-        model.addAttribute("user", currentUser);
-        return "hello";
+    @GetMapping(value = {"/", "/hello"})
+    public String mainPage(@AuthenticationPrincipal User currentUser, Model model) {
+        if (currentUser == null) {
+            return "home";
+        } else {
+            model.addAttribute("user", currentUser);
+            return "hello";
+        }
     }
 }

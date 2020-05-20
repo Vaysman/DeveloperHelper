@@ -11,11 +11,16 @@
 <body>
 <div class="container">
     <br>
-        <div class="row">
-            <div class="col">
-                <h1 class="text-center">View project</h1>
-            </div>
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-dark btn-lg" th:href="@{'/user/' + ${user.id} + '/project'}">TishTech</a>
         </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h1 class="text-center">View project</h1>
+        </div>
+    </div>
     <br>
     <div class="row">
         <div class="col border"><b>Name</b></div>
