@@ -36,8 +36,8 @@
     </tr>
     </tbody>
 </table>
-<a th:href="@{'/user/' + ${userId} + '/project/' + ${project.id} + '/generate'}">Generate</a>
-<a th:href="@{'/user/' + ${userId} + '/project/' + ${project.id} + '/edit'}">Edit</a>
-<a th:href="@{'/user/' + ${userId} + '/project/' + ${project.id} + '/delete'}">Delete</a>
+<a th:href="@{'/user/' + ${user.id} + '/project/' + ${project.id} + '/generate'}">Generate</a>
+<a th:href="@{'/user/' + ${user.id} + '/project/' + ${project.id} + '/edit'}">Edit</a>
+<a th:href="@{'/user/' + ${user.id} + '/project/' + ${project.id} + '/delete'}">Delete</a>
 </body>
 </html>

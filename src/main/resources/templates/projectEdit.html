@@ -1,40 +1,70 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>Edit Project</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css"  th:href="@{/static/css/bootstrap.css}">
+    <link rel="stylesheet" type="text/css" href="../static/css/all.css" th:href="@{/static/css/all.css}">
+    <title>Edit project</title>
 </head>
 <body>
-<h1>Edit Project</h1>
-<form th:action="@{'/user/' + ${userId} + '/project'}" th:object="${project}" method="post">
-    <table border="0">
-        <tr>
-            <th>Name</th>
-            <td><input type="text" th:field="*{name}"></td>
-        </tr>
-        <tr>
-            <th>GroupId</th>
-            <td><input type="text" th:field="*{groupId}"></td>
-        </tr>
-        <tr>
-            <th>Model</th>
-            <td><input type="text" th:field="*{model}"></td>
-        </tr>
-    </table>
-    <h4>Variables:</h4>
-    <button type="submit" name="addVariable">Add Variable</button>
+<div class="container">
     <br>
+    <div class="row">
+        <div class="col">
+            <h1 class="text-center">Edit project</h1>
+        </div>
+    </div>
     <br>
-    <table>
-        <tr th:each="variable, variableStat : ${project.variables}">
-            <td><input type="text" th:field="*{variables[__${variableStat.index}__].type}"></td>
-            <td><input type="text" th:field="*{variables[__${variableStat.index}__].name}"></td>
-            <td>
-                <button type="submit" name="removeVariable" th:value="${variableStat.index}">Remove Variable</button>
-            </td>
-        </tr>
-    </table>
-    <input type="hidden" th:field="*{id}">
-    <button type="submit">Save</button>
-</form>
+    <form th:action="@{'/user/' + ${user.id} + '/project'}" th:object="${project}" method="post">
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <b><label for="name">Name</label></b>
+                    <input class="form-control" id="name" type="text" th:field="*{name}">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <b><label for="groupId">Group Id</label></b>
+                    <input class="form-control" id="groupId" type="text" th:field="*{groupId}">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <b><label for="model">Model</label></b>
+                    <input class="form-control" id="model" type="text" th:field="*{model}">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <b>Variables:</b>
+                <button style="width: 10%" class="btn btn-primary" type="submit" name="addVariable"><i class="fas fa-plus"></i></button>
+            </div>
+        </div>
+        <br>
+        <div class="form-group" th:each="variable, variableStat : ${project.variables}">
+            <div class="row">
+                <div class="col-4">
+                    <input class="form-control" type="text" th:field="*{variables[__${variableStat.index}__].type}">
+                </div>
+                <div class="col-4">
+                    <input class="form-control" type="text" th:field="*{variables[__${variableStat.index}__].name}">
+                </div>
+                <div class="col">
+                    <button style="width: 50%" class="btn btn-danger" type="submit" name="removeVariable" th:value="${variableStat.index}"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" th:field="*{id}">
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <button class="btn btn-success btn-block" type="submit">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
 </body>
 </html>
