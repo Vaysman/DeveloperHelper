@@ -1,43 +1,60 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>Project View</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css"  th:href="@{/static/css/bootstrap.css}">
+    <link rel="stylesheet" type="text/css" href="../static/css/all.css" th:href="@{/static/css/all.css}">
+    <title>View project</title>
 </head>
 <body>
-<h1>Project View</h1>
-<table border="1">
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>GroupId</th>
-        <th>Model</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td th:text="${project.name}"></td>
-        <td th:text="${project.groupId}"></td>
-        <td th:text="${project.model}"></td>
-    </tr>
-    </tbody>
-</table>
-<h4>Variables:</h4>
-<table border="1">
-    <thead>
-    <tr>
-        <th>Type</th>
-        <th>Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="variable : ${project.variables}">
-        <td th:text="${variable.type}"></td>
-        <td th:text="${variable.name}"></td>
-    </tr>
-    </tbody>
-</table>
-<a th:href="@{'/user/' + ${user.id} + '/project/' + ${project.id} + '/generate'}">Generate</a>
-<a th:href="@{'/user/' + ${user.id} + '/project/' + ${project.id} + '/edit'}">Edit</a>
-<a th:href="@{'/user/' + ${user.id} + '/project/' + ${project.id} + '/delete'}">Delete</a>
+<div class="container">
+    <br>
+        <div class="row">
+            <div class="col">
+                <h1 class="text-center">View project</h1>
+            </div>
+        </div>
+    <br>
+    <div class="row">
+        <div class="col border"><b>Name</b></div>
+        <div class="col border"><b>GroupId</b></div>
+        <div class="col border"><b>Model</b></div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col border" th:text="${project.name}"></div>
+        <div class="col border" th:text="${project.groupId}"></div>
+        <div class="col border" th:text="${project.model}"></div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col">
+            <b>Variables:</b>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col border"><b>Type</b></div>
+        <div class="col border"><b>Name</b></div>
+    </div>
+    <div class="row" th:each="variable : ${project.variables}">
+        <div class="col border" th:text="${variable.type}"></div>
+        <div class="col border" th:text="${variable.name}"></div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-success btn-block" th:href="@{'/user/' + ${user.id} + '/project/' + ${project.id} + '/generate'}">Generate</a>
+        </div>
+        <div class="col">
+            <a class="btn btn-warning btn-block" th:href="@{'/user/' + ${user.id} + '/project/' + ${project.id} + '/edit'}">Edit</a>
+        </div>
+        <div class="col">
+            <a class="btn btn-danger btn-block" th:href="@{'/user/' + ${user.id} + '/project/' + ${project.id} + '/delete'}">Delete</a>
+        </div>
+    </div>
+</div>
 </body>
 </html>
