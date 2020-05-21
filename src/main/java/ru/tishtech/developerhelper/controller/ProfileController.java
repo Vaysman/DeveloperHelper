@@ -64,6 +64,7 @@ public class ProfileController {
                 return "profileEditPassword";
             } else {
                 userService.userSaveNewPassword(user, newPassword);
+                model.addAttribute("user", user);
                 return "passwordSuccess";
             }
         } else {
