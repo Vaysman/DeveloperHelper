@@ -20,7 +20,7 @@
                 <a class="btn btn-success" th:href="@{/doc}">Get started</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0" th:href="@{/logout}" method="post">
+        <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post">
             <a style="color: white" class="mr-2" th:href="@{'/user/' + ${user.id} + '/profile'}" th:text="${user.username}"></a>
             <a class="btn btn-warning mr-2" th:href="@{/donate}">Donate</a>
             <button class="btn btn-danger my-2 my-sm-0" type="submit">Sign out</button>
@@ -66,10 +66,10 @@
         <div class="form-group" th:each="variable, variableStat : ${project.variables}">
             <div class="row">
                 <div class="col-4">
-                    <input class="form-control" type="text" th:field="*{variables[__${variableStat.index}__].type}">
+                    <input class="form-control" type="text" th:field="*{variables[__${variableStat.index}__].type}" placeholder="Enter type">
                 </div>
                 <div class="col-4">
-                    <input class="form-control" type="text" th:field="*{variables[__${variableStat.index}__].name}">
+                    <input class="form-control" type="text" th:field="*{variables[__${variableStat.index}__].name}" placeholder="Enter name">
                 </div>
                 <div class="col">
                     <button style="width: 50%" class="btn btn-danger" type="submit" name="removeVariable" th:value="${variableStat.index}"><i class="fas fa-trash"></i></button>
