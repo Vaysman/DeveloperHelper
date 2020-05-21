@@ -13,7 +13,7 @@
     <br>
     <br>
     <div class="row h-25 justify-content-center">
-        <h1 th:text="'Hello, ' + ${user.username} + '!'"></h1>
+        <h1>Hello, <a style="color: black" th:href="@{'/user/' + ${user.id} + '/profile'}" th:text="${user.username}"></a></h1>
     </div>
     <div class="row h-50 justify-content-center align-items-center">
         <div class="col-8 col-md-6 col-lg-4">

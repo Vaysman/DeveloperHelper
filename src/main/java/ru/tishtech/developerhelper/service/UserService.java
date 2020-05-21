@@ -43,14 +43,21 @@ public class UserService implements UserDetailsService {
         user.setActivationCode(UUID.randomUUID().toString());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
-        if (!StringUtils.isEmpty(user.getEmail())) {
-            String text = "Hello, " + user.getUsername() + "!\n" +
-                    "Welcome to DeveloperHelper!\n" +
-                    "Please, click " +
-                    "<a href=\"http://localhost:8080/activate/" + user.getActivationCode() + "\">here</a> " +
-                    "to confirm your email";
-            mailService.send(user.getEmail(), "Activation Code", text);
-        }
+        String text = "Hello, " + user.getUsername() + "!\n" +
+                "Welcome to DeveloperHelper!\n" +
+                "Please, click " +
+                "<a href=\"http://localhost:8080/activate/" + user.getActivationCode() + "\">here</a> " +
+                "to confirm your email";
+        mailService.send(user.getEmail(), "Activation Code", text);
+    }
+
+    public void userSaveNewPassword(User user, String newPassword) {
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+        String text = "Hello, " + user.getUsername() + "!\n" +
+                      "You have just successfully changed your password!\n" +
+                      "Your new password: " + newPassword;
+        mailService.send(user.getEmail(), "Change password", text);
     }
 
     public boolean userActivate(String activationCode) {
@@ -59,6 +66,25 @@ public class UserService implements UserDetailsService {
         user.setActivationCode(null);
         userRepository.save(user);
         return true;
+    }
+
+    public List<String> getPasswordErrors(User user, String oldPassword, String newPassword, String confirmNewPassword) {
+        List<String> passwordErrors = new ArrayList<>();
+        if (!user.getPassword().equals(passwordEncoder.encode(oldPassword))) {
+            passwordErrors.add("Old password is not correct!");
+        }
+        if (user.getPassword().equals(passwordEncoder.encode(newPassword))) {
+            passwordErrors.add("Old and new passwords must be different!");
+        }
+        if (!passwordIsValid(newPassword)) {
+            passwordErrors.add("New password must have at least one lowercase letter, " +
+                               "one uppercase letter, one digit, one special character " +
+                               "and be 8 to 16 characters long! All letters must be latin!");
+        }
+        if (!newPassword.equals(confirmNewPassword)) {
+            passwordErrors.add("New password must match with confirm new password");
+        }
+        return passwordErrors;
     }
 
     public List<String> getValidationErrors(User user, BindingResult bindingResult, String confirmPassword) {
