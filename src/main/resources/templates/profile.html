@@ -46,10 +46,13 @@
     <br>
     <div class="row">
         <div class="col">
-            <a class="btn btn-success btn-block" th:href="@{'/user/' + ${user.id} + '/profile/password/edit'}">Change password</a>
+            <a class="btn btn-primary btn-block" th:href="@{'/user/' + ${user.id} + '/profile/username/edit'}">Change username</a>
         </div>
         <div class="col">
-            <a class="btn btn-warning btn-block" th:href="@{'/user/' + ${user.id} + '/profile/edit'}">Edit profile</a>
+            <a class="btn btn-success btn-block" th:href="@{'/user/' + ${user.id} + '/profile/email/edit'}">Change email</a>
+        </div>
+        <div class="col">
+            <a class="btn btn-warning btn-block" th:href="@{'/user/' + ${user.id} + '/profile/password/edit'}">Change password</a>
         </div>
         <div class="col">
             <a class="btn btn-danger btn-block" th:href="@{'/user/' + ${user.id} + '/profile/delete'}">Delete profile</a>

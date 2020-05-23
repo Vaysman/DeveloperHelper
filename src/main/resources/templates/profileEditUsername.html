@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css"  th:href="@{/static/css/bootstrap.css}">
-    <title>Edit profile</title>
+    <title>Change username</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -30,29 +30,22 @@
     <br>
     <div class="row">
         <div class="col">
-            <h1 class="text-center">Edit profile</h1>
+            <h1 class="text-center">Change username</h1>
         </div>
     </div>
     <br>
-    <form th:action="@{'/user/' + ${user.id} + '/profile'}" method="post">
-        <div class="row">
-            <div class="col">
+    <br>
+    <form th:action="@{'/user/' + ${user.id} + '/profile/username'}" method="post">
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <ul>
+                    <li style="color: red" th:each="usernameError : ${usernameErrors}" th:text="${usernameError}"></li>
+                </ul>
                 <div class="form-group">
                     <b><label for="username">Username</label></b>
                     <input class="form-control" id="username" type="text" name="username" th:value="${user.username}">
                 </div>
-            </div>
-            <div class="col">
-                <div class="form-group">
-                    <b><label for="email">Email</label></b>
-                    <input class="form-control" id="email" type="text" name="email" th:value="${user.email}">
-                </div>
-            </div>
-        </div>
-        <br>
-        <br>
-        <div class="row justify-content-center">
-            <div class="col-4">
+                <br>
                 <button class="btn btn-primary btn-block" type="submit">Save</button>
             </div>
         </div>

@@ -20,10 +20,11 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank(message = "Username is required!")
+    @Pattern(regexp = "^[a-zA-Z0-9_-]{3,16}$", message = "Username must have only latin letters and digits, " +
+                                                         "also must be 3 to 16 characters long!")
     private String username;
 
-    @NotBlank(message = "Email is required!")
+    //@NotBlank(message = "Email is required!")
     @Email(message = "Email is not correct!")
     private String email;
 
