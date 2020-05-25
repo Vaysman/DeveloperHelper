@@ -26,7 +26,7 @@
             <a class="btn btn-warning btn-block" th:href="@{'/user/' + ${user.id} + '/project'}">Donate</a>
             <br>
             <br>
-            <form th:href="@{/logout}" method="post">
+            <form th:action="@{/logout}" method="post">
                 <button class="btn btn-danger btn-block" type="submit">Sign out</button>
             </form>
         </div>

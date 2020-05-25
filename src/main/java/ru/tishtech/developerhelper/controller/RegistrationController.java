@@ -31,9 +31,8 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String userSave(@RequestParam String confirmPassword,
-                           @Valid User user, BindingResult bindingResult,
-                           Model model) {
+    public String userSave(@Valid User user, BindingResult bindingResult,
+                           @RequestParam String confirmPassword, Model model) {
         List<String> validationErrors = userService.getValidationErrors(user, bindingResult, confirmPassword);
         if (!validationErrors.isEmpty()) {
             boolean zeroElementHasSize = !validationErrors.get(0).isEmpty();

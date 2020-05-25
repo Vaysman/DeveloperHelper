@@ -46,8 +46,39 @@ public class UserService implements UserDetailsService {
                       "Welcome to DeveloperHelper!\n" +
                       "Please, click " +
                       "<a href=\"http://localhost:8080/activate/" + user.getActivationCode() + "\">here</a> " +
-                      "to confirm your email";
+                      "to confirm your email!";
         mailService.send(user.getEmail(), "Activation Code", text);
+    }
+
+    public void userSaveNewUsername(User user, String username) {
+        user.setUsername(username);
+        userRepository.save(user);
+        String text = "Hello, " + user.getUsername() + "!\n" +
+                      "You have just successfully changed your username!\n" +
+                      "Your new username: " + username;
+        mailService.send(user.getEmail(), "Change username", text);
+    }
+
+    public void userSaveNewEmail(User user, String email) {
+        user.setActivationCode(UUID.randomUUID().toString());
+        String emailAntiSpam = email.replace("@", user.getActivationCode() + "at")
+                                    .replaceAll("\\.", user.getActivationCode() + "dot");
+        userRepository.save(user);
+        String text = "Hello, " + user.getUsername() + "!\n" +
+                      "Please, click " +
+                      "<a href=\"http://localhost:8080/user/" + user.getId() + "/profile/email/" + emailAntiSpam +
+                      "/activate/" + user.getActivationCode() + "\">here</a> " +
+                      "to confirm your new email!";
+        mailService.send(email, "Change email", text);
+    }
+
+    public boolean userActivateNewEmail(User user, String email, String activationCode) {
+        if (user.getActivationCode().equals(activationCode)) {
+            user.setEmail(email);
+        }
+        user.setActivationCode(null);
+        userRepository.save(user);
+        return user.getEmail().equals(email);
     }
 
     public void userSaveNewPassword(User user, String newPassword) {
@@ -67,24 +98,24 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
-    public List<String> getUsernameErrors(User user, String username) {
+    public List<String> getUsernameErrors(String username) {
         List<String> usernameErrors = new ArrayList<>();
         if (!usernameIsValid(username)) {
             usernameErrors.add("Username must have only latin letters and digits, " +
-                    "also must be 3 to 16 characters long!");
+                               "also must be 3 to 16 characters long!");
         }
-        if (usernameIsExists(user.getUsername())) {
+        if (usernameExists(username)) {
             usernameErrors.add("A user is already registered with this username!");
         }
         return usernameErrors;
     }
 
-    public List<String> getEmailErrors(User user, String email) {
+    public List<String> getEmailErrors(String email) {
         List<String> emailErrors = new ArrayList<>();
         if (!emailIsValid(email)) {
             emailErrors.add("Email is not correct!");
         }
-        if (emailIsExists(user.getEmail())) {
+        if (emailExists(email)) {
             emailErrors.add("A user is already registered with this email address!");
         }
         return emailErrors;
@@ -92,7 +123,7 @@ public class UserService implements UserDetailsService {
 
     public List<String> getPasswordErrors(User user, String oldPassword, String newPassword, String confirmNewPassword) {
         List<String> passwordErrors = new ArrayList<>();
-        if (!user.getPassword().equals(passwordEncoder.encode(oldPassword))) {
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
             passwordErrors.add("Old password is not correct!");
         }
         if (user.getPassword().equals(passwordEncoder.encode(newPassword))) {
@@ -115,10 +146,10 @@ public class UserService implements UserDetailsService {
             validationErrors.add("");
             return validationErrors;
         }
-        if (usernameIsExists(user.getUsername())) {
+        if (usernameExists(user.getUsername())) {
             validationErrors.add("A user is already registered with this username!");
         }
-        if (emailIsExists(user.getEmail())) {
+        if (emailExists(user.getEmail())) {
             validationErrors.add("A user is already registered with this email address!");
         }
         if (!user.getPassword().equals(confirmPassword)) {
@@ -147,12 +178,12 @@ public class UserService implements UserDetailsService {
         return pattern.matcher(email).matches();
     }
 
-    private boolean usernameIsExists(String username) {
+    private boolean usernameExists(String username) {
         User userFromDatabase = userRepository.findByUsername(username);
         return userFromDatabase != null;
     }
 
-    private boolean emailIsExists(String email) {
+    private boolean emailExists(String email) {
         User userFromDatabase = userRepository.findByEmail(email);
         return userFromDatabase != null;
     }

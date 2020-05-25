@@ -78,11 +78,12 @@ public class ProfileController {
     public String profileSaveNewUsername(@AuthenticationPrincipal User currentUser, @PathVariable User user,
                                          @RequestParam String username, Model model) {
         if (currentUser.equals(user)) {
-            List<String> usernameErrors = userService.getUsernameErrors(user, username);
+            List<String> usernameErrors = userService.getUsernameErrors(username);
             if (!usernameErrors.isEmpty()) {
                 model.addAttribute("usernameErrors", usernameErrors);
                 return "profileEditUsername";
             } else {
+                userService.userSaveNewUsername(user, username);
                 model.addAttribute("user", user);
                 model.addAttribute("mutable", "Username");
                 return "success";
@@ -92,18 +93,35 @@ public class ProfileController {
         }
     }
 
-    @PostMapping("/{user}/profile/username")
+    @PostMapping("/{user}/profile/email")
     public String profileSaveNewEmail(@AuthenticationPrincipal User currentUser, @PathVariable User user,
                                       @RequestParam String email, Model model) {
         if (currentUser.equals(user)) {
-            List<String> emailErrors = userService.getEmailErrors(user, email);
+            List<String> emailErrors = userService.getEmailErrors(email);
             if (!emailErrors.isEmpty()) {
                 model.addAttribute("emailErrors", emailErrors);
                 return "profileEditEmail";
             } else {
+                userService.userSaveNewEmail(user, email);
                 model.addAttribute("user", user);
+                return "checkEmail";
+            }
+        } else {
+            return "accessError";
+        }
+    }
+
+    @GetMapping("/{user}/profile/email/{emailAntiSpam}/activate/{activationCode}")
+    public String profileActivateNewEmail(@AuthenticationPrincipal User currentUser, @PathVariable User user,
+                                          @PathVariable String emailAntiSpam, @PathVariable String activationCode, Model model) {
+        if (currentUser.equals(user)) {
+            String email = emailAntiSpam.replace(user.getActivationCode() + "at", "@")
+                                        .replaceAll(user.getActivationCode() + "dot", ".");
+            if (userService.userActivateNewEmail(user, email, activationCode)) {
                 model.addAttribute("mutable", "Email");
                 return "success";
+            } else {
+                return "fail";
             }
         } else {
             return "accessError";
@@ -126,18 +144,6 @@ public class ProfileController {
                 model.addAttribute("mutable", "Password");
                 return "success";
             }
-        } else {
-            return "accessError";
-        }
-    }
-
-    @PostMapping("/{user}/profile")
-    public String profileSave(@AuthenticationPrincipal User currentUser, @PathVariable User user,
-                              @RequestParam String username, @RequestParam String email, Model model) {
-        if (currentUser.equals(user)) {
-            System.out.println("Username: " + username);
-//            userRepository.save(user);
-            return "redirect:/user/" + user.getId() + "/profile";
         } else {
             return "accessError";
         }
