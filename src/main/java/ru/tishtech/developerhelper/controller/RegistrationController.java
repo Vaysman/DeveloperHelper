@@ -41,7 +41,8 @@ public class RegistrationController {
             return "registration";
         } else {
             userService.userSave(user);
-            return "redirect:/login";
+            model.addAttribute("checkYourEmail", "Check your email");
+            return "login";
         }
     }
 
