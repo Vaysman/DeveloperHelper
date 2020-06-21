@@ -31,9 +31,11 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
-        if (user != null && user.getActivationCode() == null) return user;
-        else return null;
+        User user;
+        if (username.contains("@")) user = userRepository.findByEmail(username.toLowerCase());
+        else user = userRepository.findByUsername(username.toLowerCase());
+        if (user.getActivationCode() != null) return null;
+        else return user;
     }
 
     public void userSave(User user) {
@@ -179,12 +181,12 @@ public class UserService implements UserDetailsService {
     }
 
     private boolean usernameExists(String username) {
-        User userFromDatabase = userRepository.findByUsername(username);
+        User userFromDatabase = userRepository.findByUsername(username.toLowerCase());
         return userFromDatabase != null;
     }
 
     private boolean emailExists(String email) {
-        User userFromDatabase = userRepository.findByEmail(email);
+        User userFromDatabase = userRepository.findByEmail(email.toLowerCase());
         return userFromDatabase != null;
     }
 }
