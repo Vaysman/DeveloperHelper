@@ -16,9 +16,6 @@ import java.util.List;
 public class ProfileController {
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private UserService userService;
 
     @GetMapping("/{user}/profile")
@@ -139,7 +136,7 @@ public class ProfileController {
                 model.addAttribute("passwordErrors", passwordErrors);
                 return "profileEditPassword";
             } else {
-                userService.userSaveNewPassword(user, newPassword);
+                userService.userSaveNewPassword(user, newPassword, null);
                 model.addAttribute("user", user);
                 model.addAttribute("mutable", "Password");
                 return "success";

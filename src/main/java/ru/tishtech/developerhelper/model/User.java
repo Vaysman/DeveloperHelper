@@ -24,7 +24,6 @@ public class User implements UserDetails {
                                                          "also must be 3 to 16 characters long!")
     private String username;
 
-    //@NotBlank(message = "Email is required!")
     @Email(message = "Email is not correct!")
     private String email;
 
@@ -33,6 +32,7 @@ public class User implements UserDetails {
 
     private boolean active;
     private String activationCode;
+    private String forgotPasswordCode;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
@@ -88,6 +88,14 @@ public class User implements UserDetails {
 
     public void setActivationCode(String activationCode) {
         this.activationCode = activationCode;
+    }
+
+    public String getForgotPasswordCode() {
+        return forgotPasswordCode;
+    }
+
+    public void setForgotPasswordCode(String forgotPasswordCode) {
+        this.forgotPasswordCode = forgotPasswordCode;
     }
 
     public Set<Role> getRoles() {

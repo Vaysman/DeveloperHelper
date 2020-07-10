@@ -34,8 +34,36 @@ public class UserService implements UserDetailsService {
         User user;
         if (username.contains("@")) user = userRepository.findByEmail(username.toLowerCase());
         else user = userRepository.findByUsername(username.toLowerCase());
-        if (user.getActivationCode() != null) return null;
+        if (user == null || user.getActivationCode() != null ||
+                user.getForgotPasswordCode() != null) return null;
         else return user;
+    }
+
+    public String userForgotPassword(String username) {
+        User user;
+        if (username.contains("@")) user = userRepository.findByEmail(username.toLowerCase());
+        else user = userRepository.findByUsername(username.toLowerCase());
+        if (user == null || user.getActivationCode() != null) return "User is not found!";
+        else {
+            user.setForgotPasswordCode(UUID.randomUUID().toString());
+            userRepository.save(user);
+            String email = user.getEmail();
+            String text = "Hello, " + user.getUsername() + "!\n" +
+                          "Please, click " +
+                          "<a href=\"http://localhost:8080/password/" + user.getForgotPasswordCode() + "\">here</a> " +
+                          "to create new password!";
+            mailService.send(email, "Forgot password", text);
+            String toEmail = email.substring(0, 2) + "*****" + email.substring(email.indexOf("@"));
+            return "Check your email: " + toEmail;
+        }
+    }
+
+    public boolean userCreateNewPassword(String forgotPasswordCode) {
+        User user = userRepository.findByForgotPasswordCode(forgotPasswordCode);
+        if (user == null) return false;
+        user.setPassword(UUID.randomUUID().toString());
+        userRepository.save(user);
+        return true;
     }
 
     public void userSave(User user) {
@@ -49,7 +77,7 @@ public class UserService implements UserDetailsService {
                       "Please, click " +
                       "<a href=\"http://localhost:8080/activate/" + user.getActivationCode() + "\">here</a> " +
                       "to confirm your email!";
-        mailService.send(user.getEmail(), "Activation Code", text);
+        mailService.send(user.getEmail(), "Activation code", text);
     }
 
     public void userSaveNewUsername(User user, String username) {
@@ -83,7 +111,11 @@ public class UserService implements UserDetailsService {
         return user.getEmail().equals(email);
     }
 
-    public void userSaveNewPassword(User user, String newPassword) {
+    public void userSaveNewPassword(User user, String newPassword, String forgotPasswordCode) {
+        if (user == null) {
+            user = userRepository.findByForgotPasswordCode(forgotPasswordCode);
+            user.setForgotPasswordCode(null);
+        }
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
         String text = "Hello, " + user.getUsername() + "!\n" +
@@ -125,11 +157,13 @@ public class UserService implements UserDetailsService {
 
     public List<String> getPasswordErrors(User user, String oldPassword, String newPassword, String confirmNewPassword) {
         List<String> passwordErrors = new ArrayList<>();
-        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-            passwordErrors.add("Old password is not correct!");
-        }
-        if (user.getPassword().equals(passwordEncoder.encode(newPassword))) {
-            passwordErrors.add("Old and new passwords must be different!");
+        if (user != null) {
+            if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+                passwordErrors.add("Old password is not correct!");
+            }
+            if (user.getPassword().equals(passwordEncoder.encode(newPassword))) {
+                passwordErrors.add("Old and new passwords must be different!");
+            }
         }
         if (!passwordIsValid(newPassword)) {
             passwordErrors.add("New password must have at least one lowercase letter, " +

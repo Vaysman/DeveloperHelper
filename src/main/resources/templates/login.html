@@ -21,6 +21,9 @@
                 <h3 th:text="${activationResult}"></h3>
             </div>
             <div style="color: blue" class="text-center">
+                <h3 th:text="${createNewPasswordResult}"></h3>
+            </div>
+            <div style="color: blue" class="text-center">
                 <h3 th:text="${checkYourEmail}"></h3>
             </div>
             <form th:action="@{/login}" method="post">
@@ -42,7 +45,7 @@
                 <a class="btn btn-success btn-block" th:href="@{/registration}">Sign up</a>
                 <br>
                 <br>
-                <a class="btn btn-warning btn-block" href="#">Forgot password</a>
+                <a class="btn btn-warning btn-block" th:href="@{/password/forgot}">Forgot password</a>
             </form>
         </div>
     </div>
