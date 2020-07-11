@@ -145,4 +145,14 @@ public class ProfileController {
             return "accessError";
         }
     }
+
+    @GetMapping("/{user}/profile/delete")
+    public String profileDelete(@AuthenticationPrincipal User currentUser, @PathVariable User user) {
+        if (currentUser.equals(user)) {
+            userService.userDelete(user);
+            return "home";
+        } else {
+            return "accessError";
+        }
+    }
 }

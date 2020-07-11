@@ -132,6 +132,10 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
+    public void userDelete(User user) {
+        userRepository.delete(user);
+    }
+
     public List<String> getUsernameErrors(String username) {
         List<String> usernameErrors = new ArrayList<>();
         if (!usernameIsValid(username)) {
