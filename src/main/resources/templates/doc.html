@@ -1,10 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css"  th:href="@{/static/css/bootstrap.css}">
+    <link rel="stylesheet" type="text/css" href="../static/css/all.css" th:href="@{/static/css/all.css}">
+    <title>Documentation</title>
 </head>
 <body>
-
+<div class="container">
+<a style="font-size: 300%" th:href="@{/}"><i class="fas fa-home"></i></a>
+<h1>Введение</h1>
+<br>
+<div><b>DeveloperHelper</b> - это сервис, который, исходя из Ваших параметров, с нуля создает полностью</div>
+<div>рабочий исходный код для <b>CRUD (Create, Read, Update, Delete)</b> приложения на <b>Spring Boot</b></div>
+<br>
+<b>Для кого:</b>
+<ul>
+    <li>Для разработчиков, которым иногда просто немного лень писать подобный функционал</li>
+    <li>Для новичков, которые хотят лучше разобраться в подобных приложениях</li>
+    <li>Для всех интересующихся подобной темой</li>
+</ul>
+<b>Технологии в Ваших будующих приложениях:</b>
+<ul>
+    <li><b>Back-end:</b>
+        <ul>
+            <li>Java 8</li>
+            <li>Spring Boot 2</li>
+            <li>PostgreSQL 10</li>
+            <li>Maven 4</li>
+        </ul>
+    </li>
+    <li><b>Front-end:</b>
+        <ul>
+            <li>HTML5</li>
+            <li>Thymeleaf 3</li>
+        </ul>
+    </li>
+</ul>
+<h1>Быстрый старт</h1>
+<br>
+<p><b>1)</b> Войти или зарегистрироваться</p>
+<p><b>2)</b> Перейти в раздел <b>My projects</b></p>
+    <img src="../static/img/2.png">
+<p><b>3)</b> Нажать на кнопку <b>Create project</b></p>
+    <img src="../static/img/3.png">
+    <br>
+    <br>
+<p><b>4)</b> В поле <b>Name</b> ввести название Вашего проекта латинскими буквами без пробелов</p>
+    <img src="../static/img/4.png">
+<p><b>5)</b> В поле <b>Group Id</b> ввести адрес любого домена в обратном порядке слов</p>
+    <img src="../static/img/5.png">
+<p><b>6)</b> В поле <b>Model</b> ввести название модели данных,
+которыми Вы будете управлять, латинскими буквами без пробелов</p>
+    <img src="../static/img/6.png">
+<p><b>7)</b> Добавить переменные, нажимая на кнопку <b>+</b></p>
+    <ul>
+        <li>Переменную <b>id</b> добавлять не нужно, так как она будет в коде по умолчанию</li>
+        <li>Необходимо учитывать правильность написания существующих типов Java</li>
+        <li><b>Ссылочные типы</b> писать с большой буквы. <b>Примитивные типы</b> писать с маленькой буквы</li>
+        <li>Название переменных писать с меленькой буквы и используя <b>CamelCase</b></li>
+    </ul>
+    <img src="../static/img/7.png">
+<p><b>8)</b> Нажать на кнопку <b>Save</b></p>
+<p><b>9)</b> В списке проектов выбрать нужный проект и нажать на кнопку, на которой изображён глаз</p>
+    <img src="../static/img/9.png">
+<p><b>10)</b> Нажать на кнопку <b>Generate</b></p>
+    <img src="../static/img/10.png">
+<p><b>11)</b> Нажать на кнопку <b>Download</b></p>
+<p><b>12)</b> Распаковать скачанный архив</p>
+<p><b>13)</b> Открыть главную папку с помощью <b>IDE</b></p>
+<p><b>14)</b> Собрать проект</p>
+<p><b>15)</b> Подключить базу данных <b>PostgreSQL</b></p>
+    <img src="../static/img/15.1.png">
+    <img src="../static/img/15.2.png">
+    <br>
+    <br>
+    <img src="../static/img/15.3.png">
+    <br>
+    <br>
+<p><b>16)</b> Ввести свои данные в файле <b>application.properties</b></p>
+    <img src="../static/img/16.png">
+    <br>
+    <br>
+<p><b>17)</b> Запустить проект</p>
+    <img src="../static/img/17.png">
+    <br>
+    <br>
+<p><b>18)</b> Открыть браузер и перейти на сайт <b>localhost:8080</b></p>
+    <img src="../static/img/18.png">
+<p><b>19)</b> Наслаждаться полученным результатом</p>
+<p><b>20)</b> Вернуться на сайт <b>DeveloperHelper</b> и нажать на кнопку <b>Donate</b></p>
+    <img src="../static/img/20.png">
+    <div>
+        <a style="font-size: 300%" th:href="@{/}"><i class="fas fa-home"></i></a>
+    </div>
+</div>
 </body>
 </html>
