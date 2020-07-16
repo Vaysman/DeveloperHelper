@@ -1,6 +1,7 @@
 package ru.tishtech.developerhelper.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,6 +20,9 @@ import java.util.regex.Pattern;
 
 @Service
 public class UserService implements UserDetailsService {
+
+    @Value("{main.domain}")
+    private String domain;
 
     @Autowired
     private UserRepository userRepository;
@@ -50,7 +54,7 @@ public class UserService implements UserDetailsService {
             String email = user.getEmail();
             String text = "Hello, " + user.getUsername() + "!\n" +
                           "Please, click " +
-                          "<a href=\"http://localhost:8080/password/" + user.getForgotPasswordCode() + "\">here</a> " +
+                          "<a href=\"http://" + domain + "/password/" + user.getForgotPasswordCode() + "\">here</a> " +
                           "to create new password!";
             mailService.send(email, "Forgot password", text);
             String toEmail = email.substring(0, 2) + "*****" + email.substring(email.indexOf("@"));
@@ -75,7 +79,7 @@ public class UserService implements UserDetailsService {
         String text = "Hello, " + user.getUsername() + "!\n" +
                       "Welcome to DeveloperHelper!\n" +
                       "Please, click " +
-                      "<a href=\"http://localhost:8080/activate/" + user.getActivationCode() + "\">here</a> " +
+                      "<a href=\"http://" + domain + "/activate/" + user.getActivationCode() + "\">here</a> " +
                       "to confirm your email!";
         mailService.send(user.getEmail(), "Activation code", text);
     }
@@ -96,7 +100,7 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
         String text = "Hello, " + user.getUsername() + "!\n" +
                       "Please, click " +
-                      "<a href=\"http://localhost:8080/user/" + user.getId() + "/profile/email/" + emailAntiSpam +
+                      "<a href=\"http://" + domain + "/user/" + user.getId() + "/profile/email/" + emailAntiSpam +
                       "/activate/" + user.getActivationCode() + "\">here</a> " +
                       "to confirm your new email!";
         mailService.send(email, "Change email", text);

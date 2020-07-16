@@ -15,7 +15,7 @@ public class {Model}Controller {
     @Autowired
     private {Model}Repository {model}Repository;
 
-    @GetMapping("/{model}")
+    @GetMapping(value = {"/", "/{model}"})
     public String {model}List(Model model) {
         model.addAttribute("{model}s", {model}Repository.findAll());
         return "{model}List";
