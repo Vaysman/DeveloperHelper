@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 @Service
 public class UserService implements UserDetailsService {
 
-    @Value("{main.domain}")
+    @Value("${main.domain}")
     private String domain;
 
     @Autowired
@@ -53,9 +53,8 @@ public class UserService implements UserDetailsService {
             userRepository.save(user);
             String email = user.getEmail();
             String text = "Hello, " + user.getUsername() + "!\n" +
-                          "Please, click " +
-                          "<a href=\"http://" + domain + "/password/" + user.getForgotPasswordCode() + "\">here</a> " +
-                          "to create new password!";
+                          "Please, click the link http://" + domain + "/password/" + user.getForgotPasswordCode() +
+                          " to create a new password!";
             mailService.send(email, "Forgot password", text);
             String toEmail = email.substring(0, 2) + "*****" + email.substring(email.indexOf("@"));
             return "Check your email: " + toEmail;
@@ -78,9 +77,8 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
         String text = "Hello, " + user.getUsername() + "!\n" +
                       "Welcome to DeveloperHelper!\n" +
-                      "Please, click " +
-                      "<a href=\"http://" + domain + "/activate/" + user.getActivationCode() + "\">here</a> " +
-                      "to confirm your email!";
+                      "Please, click the link http://" + domain + "/activate/" + user.getActivationCode() +
+                      " to confirm your email!";
         mailService.send(user.getEmail(), "Activation code", text);
     }
 
@@ -99,10 +97,9 @@ public class UserService implements UserDetailsService {
                                     .replaceAll("\\.", user.getActivationCode() + "dot");
         userRepository.save(user);
         String text = "Hello, " + user.getUsername() + "!\n" +
-                      "Please, click " +
-                      "<a href=\"http://" + domain + "/user/" + user.getId() + "/profile/email/" + emailAntiSpam +
-                      "/activate/" + user.getActivationCode() + "\">here</a> " +
-                      "to confirm your new email!";
+                      "Please, click the link http://" + domain + "/user/" + user.getId() + "/profile/email/" + emailAntiSpam +
+                      "/activate/" + user.getActivationCode() +
+                      " to confirm your new email!";
         mailService.send(email, "Change email", text);
     }
 
