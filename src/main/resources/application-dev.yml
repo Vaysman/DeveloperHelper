@@ -1,0 +1,22 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+spring:
+  h2:
+    console:
+      enabled: true
+  datasource:
+    name: devhelper
+
+  mail:
+    host: smtp.example.com
+    port: 465
+    protocol: smtp
+    username: user
+    password: password
+
+main:
+  domain: 'localhost:8080'

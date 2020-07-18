@@ -18,38 +18,46 @@ import ru.tishtech.developerhelper.service.UserService;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UserService userService;
+  @Autowired private UserService userService;
 
-    @Lazy
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+  @Lazy @Autowired private PasswordEncoder passwordEncoder;
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(8);
-    }
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder(8);
+  }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/", "/registration", "/password/**",
-                        "/doc", "/donate", "/contact", "/activate/*", "/static/**")
-                .permitAll()
-                .anyRequest().authenticated()
-            .and()
-                .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/hello")
-                .permitAll()
-            .and()
-                .logout()
-                .permitAll();
-    }
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http.authorizeRequests()
+        .antMatchers(
+            "/",
+            "/registration",
+            "/password/**",
+            "/doc",
+            "/donate",
+            "/contact",
+            "/activate/*",
+            "/static/**",
+            "/actuator/**",
+            "/h2-console/**")
+        .permitAll()
+        .anyRequest()
+        .authenticated()
+        .and().csrf().ignoringAntMatchers("/h2-console/**")
+        .and().headers().frameOptions().sameOrigin()
+        .and()
+        .formLogin()
+        .loginPage("/login")
+        .defaultSuccessUrl("/hello")
+        .permitAll()
+        .and()
+        .logout()
+        .permitAll();
+  }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService)
-                .passwordEncoder(passwordEncoder);
-    }
+  @Override
+  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
+  }
 }

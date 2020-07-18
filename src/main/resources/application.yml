@@ -1,0 +1,14 @@
+spring:
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+
+contact:
+  to:
+    email: developerhelper@tishtech.ru
+mail:
+  debug: false
+main:
+  domain: developerhelper.tishtech.ru
+

@@ -5,11 +5,11 @@ import ru.tishtech.developerhelper.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    User findByUsername(String username);
+  User findByUsername(String username);
 
-    User findByEmail(String email);
+  User findByEmail(String email);
 
-    User findByActivationCode(String activationCode);
+  User findByActivationCode(String activationCode);
 
-    User findByForgotPasswordCode(String forgotPasswordCode);
+  User findByForgotPasswordCode(String forgotPasswordCode);
 }
