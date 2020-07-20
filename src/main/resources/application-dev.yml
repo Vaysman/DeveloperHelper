@@ -10,6 +10,7 @@ spring:
       enabled: true
   datasource:
     name: devhelper
+    platform: h2
 
   mail:
     host: smtp.example.com
