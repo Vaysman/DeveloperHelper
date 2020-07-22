@@ -38,10 +38,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/donate",
             "/contact",
             "/activate/*",
-            "/static/**",
+            "/img/**",
+            "/css/**",
             "/webjars/**",
             "/favicon.ico",
             "/actuator/**",
+            "/public/**",
             "/h2-console/**")
         .permitAll()
         .anyRequest()
