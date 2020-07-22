@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
@@ -30,12 +29,11 @@ public class UserService implements UserDetailsService {
   @Autowired private PasswordEncoder passwordEncoder;
 
   @Override
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+  public UserDetails loadUserByUsername(String username) {
     User user;
     if (username.contains("@")) {
       user = userRepository.findByEmail(username.toLowerCase());
-    }
-    else {
+    } else {
       user = userRepository.findByUsername(username.toLowerCase());
     }
     if (user == null || user.getActivationCode() != null || user.getForgotPasswordCode() != null) {
@@ -47,10 +45,14 @@ public class UserService implements UserDetailsService {
 
   public String userForgotPassword(String username) {
     User user;
-    if (username.contains("@")) user = userRepository.findByEmail(username.toLowerCase());
-    else user = userRepository.findByUsername(username.toLowerCase());
-    if (user == null || user.getActivationCode() != null) return "User is not found!";
-    else {
+    if (username.contains("@")) {
+      user = userRepository.findByEmail(username.toLowerCase());
+    } else {
+      user = userRepository.findByUsername(username.toLowerCase());
+    }
+    if (user == null || user.getActivationCode() != null) {
+      return "User is not found!";
+    } else {
       user.setForgotPasswordCode(UUID.randomUUID().toString());
       userRepository.save(user);
       String email = user.getEmail();
@@ -71,7 +73,9 @@ public class UserService implements UserDetailsService {
 
   public boolean userCreateNewPassword(String forgotPasswordCode) {
     User user = userRepository.findByForgotPasswordCode(forgotPasswordCode);
-    if (user == null) return false;
+    if (user == null) {
+      return false;
+    }
     user.setPassword(UUID.randomUUID().toString());
     userRepository.save(user);
     return true;
@@ -160,7 +164,9 @@ public class UserService implements UserDetailsService {
 
   public boolean userActivate(String activationCode) {
     User user = userRepository.findByActivationCode(activationCode);
-    if (user == null) return false;
+    if (user == null) {
+      return false;
+    }
     user.setActivationCode(null);
     userRepository.save(user);
     return true;

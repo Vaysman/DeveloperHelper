@@ -39,13 +39,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/contact",
             "/activate/*",
             "/static/**",
+            "/favicon.ico",
             "/actuator/**",
             "/h2-console/**")
         .permitAll()
         .anyRequest()
         .authenticated()
-        .and().csrf().ignoringAntMatchers("/h2-console/**")
-        .and().headers().frameOptions().sameOrigin()
+        .and()
+        .csrf()
+        .ignoringAntMatchers("/h2-console/**")
+        .and()
+        .headers()
+        .frameOptions()
+        .sameOrigin()
         .and()
         .formLogin()
         .loginPage("/login")

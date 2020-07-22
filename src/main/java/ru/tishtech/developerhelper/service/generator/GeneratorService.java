@@ -13,6 +13,7 @@ import ru.tishtech.developerhelper.service.ReaderService;
 import ru.tishtech.developerhelper.service.WriterService;
 import ru.tishtech.developerhelper.util.ZipUtil;
 
+// FIXME: switch to any templating engine
 public class GeneratorService {
 
   public static void generateFiles(
@@ -26,7 +27,10 @@ public class GeneratorService {
     String capitalModel = CorrectorService.toCapitalString(model);
     String smallModel = CorrectorService.toSmallString(model);
     String groupIdPath = "";
-    for (String groupIdPart : groupIdParts) groupIdPath += groupIdPart + "/";
+    // FIXME: use StringBuilder
+    for (String groupIdPart : groupIdParts) {
+      groupIdPath += groupIdPart + "/";
+    }
 
     List<String> pomData =
         PomGeneratorService.generatePomData(
@@ -39,6 +43,7 @@ public class GeneratorService {
             readerService.readData(FileNames.APPLICATION_NAME + FileTypes.TXT_TYPE),
             projectName,
             groupId);
+
     String applicationPath =
         projectPath + projectName + "/" + FilePaths.SRC_MAIN_JAVA_DIR + groupIdPath + projectName;
     WriterService.writeData(
@@ -149,6 +154,7 @@ public class GeneratorService {
       try {
         FileUtils.deleteDirectory(folderForDelete);
       } catch (IOException e) {
+        // FIXME: use logging
         e.printStackTrace();
       }
     }

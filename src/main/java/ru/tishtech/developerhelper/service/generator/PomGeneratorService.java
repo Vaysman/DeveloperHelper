@@ -3,12 +3,14 @@ package ru.tishtech.developerhelper.service.generator;
 import java.util.ArrayList;
 import java.util.List;
 
+// FIXME: switch to any templating engine
 public class PomGeneratorService {
 
   public static List<String> generatePomData(
       List<String> data, String projectName, String groupId) {
     List<String> dependencies = new ArrayList<>();
     String dependenciesString = "";
+    // FIXME: useless code, dependencies is always empty
     for (String dependency : dependencies) {
       dependenciesString += dependency;
     }

@@ -23,6 +23,7 @@ public class ReaderService {
       }
       bufferedReader.close();
     } catch (Exception e) {
+      // FIXME: use logging
       e.printStackTrace();
     }
     return data;

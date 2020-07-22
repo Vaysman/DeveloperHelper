@@ -2,6 +2,7 @@ package ru.tishtech.developerhelper.service.generator;
 
 import java.util.List;
 
+// FIXME: switch to any templating engine
 public class ApplicationGeneratorService {
 
   public static List<String> generateApplicationData(

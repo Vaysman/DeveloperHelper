@@ -1,18 +1,6 @@
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-
 spring:
-  h2:
-    console:
-      enabled: true
   datasource:
-    name: devhelper
     platform: h2
-    generate-unique-name: false
-
   mail:
     host: smtp.example.com
     port: 465

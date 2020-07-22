@@ -4,6 +4,7 @@ import java.util.List;
 import ru.tishtech.developerhelper.model.Variable;
 import ru.tishtech.developerhelper.service.CorrectorService;
 
+// FIXME: switch to any templating engine
 public class ModelGeneratorService {
 
   public static List<String> generateModelData(
@@ -19,7 +20,9 @@ public class ModelGeneratorService {
     for (Variable variable : variables) {
       String smallName = CorrectorService.toSmallString(variable.getName());
       String capitalName = CorrectorService.toCapitalString(variable.getName());
+      // FIXME: use StringBuilder
       variablesString += "\tprivate " + variable.getType() + " " + smallName + ";\n";
+      // FIXME: use StringBuilder
       gettersAndSettersString +=
           "\tpublic "
               + variable.getType()

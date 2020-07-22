@@ -1,6 +1,5 @@
 package ru.tishtech.developerhelper.service;
 
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -14,6 +13,7 @@ public class WriterService {
     if (!filePath.exists()) {
       filePath.mkdirs();
     }
+    // FIXME: try with resources
     try {
       BufferedWriter bufferedWriter =
           new BufferedWriter(new FileWriter(new File(filePath, fileName)));
@@ -22,6 +22,7 @@ public class WriterService {
       }
       bufferedWriter.close();
     } catch (IOException e) {
+      // FIXME: use logging
       e.printStackTrace();
     }
   }

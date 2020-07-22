@@ -11,7 +11,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import ru.tishtech.developerhelper.constants.FileTypes;
 import ru.tishtech.developerhelper.model.Project;
 import ru.tishtech.developerhelper.model.User;
@@ -89,8 +94,11 @@ public class ProjectController {
     if (currentUser.equals(user)) {
       project.getVariables().add(new Variable());
       model.addAttribute("user", user);
-      if (project.getId() == null) return "projectAdd";
-      else return "projectEdit";
+      if (project.getId() == null) {
+        return "projectAdd";
+      } else {
+        return "projectEdit";
+      }
     } else {
       return "accessError";
     }
@@ -109,8 +117,11 @@ public class ProjectController {
       int variableId = Integer.parseInt(removeVariable);
       project.getVariables().remove(variableId);
       model.addAttribute("user", user);
-      if (project.getId() == null) return "projectAdd";
-      else return "projectEdit";
+      if (project.getId() == null) {
+        return "projectAdd";
+      } else {
+        return "projectEdit";
+      }
     } else {
       return "accessError";
     }
@@ -174,6 +185,7 @@ public class ProjectController {
       HttpServletResponse response)
       throws IOException {
     if (currentUser.equals(user)) {
+      // FIXME: try with resources
       InputStream inputStream =
           new FileInputStream(projectPath + project.getName() + FileTypes.ZIP_TYPE);
       response.addHeader(

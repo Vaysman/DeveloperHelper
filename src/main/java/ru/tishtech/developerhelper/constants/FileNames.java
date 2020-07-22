@@ -1,5 +1,6 @@
 package ru.tishtech.developerhelper.constants;
 
+// FIXME: move the constants to the class where they are used
 public class FileNames {
 
   public static final String POM_NAME = "pom";

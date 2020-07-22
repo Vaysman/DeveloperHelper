@@ -9,12 +9,14 @@ import java.util.zip.ZipOutputStream;
 public class ZipUtil {
 
   public static void zip(String fromFile, String toFile) {
+    // FIXME: try with resources
     try {
       ZipOutputStream zipOutputStream = new ZipOutputStream(new FileOutputStream(toFile));
       File fileToZip = new File(fromFile);
       zipFile(fileToZip, fileToZip.getName(), zipOutputStream);
       zipOutputStream.close();
     } catch (Exception e) {
+      // FIXME: use logging
       e.printStackTrace();
     }
   }
@@ -35,6 +37,7 @@ public class ZipUtil {
         }
         return;
       }
+      // FIXME: try with resources
       FileInputStream fileInputStream = new FileInputStream(fileToZip);
       ZipEntry zipEntry = new ZipEntry(fileName);
       zipOutputStream.putNextEntry(zipEntry);
@@ -45,6 +48,7 @@ public class ZipUtil {
       }
       fileInputStream.close();
     } catch (Exception e) {
+      // FIXME: use logging
       e.printStackTrace();
     }
   }

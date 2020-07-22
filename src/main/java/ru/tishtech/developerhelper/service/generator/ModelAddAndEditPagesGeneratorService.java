@@ -4,6 +4,7 @@ import java.util.List;
 import ru.tishtech.developerhelper.model.Variable;
 import ru.tishtech.developerhelper.service.CorrectorService;
 
+// FIXME: switch to any templating engine
 public class ModelAddAndEditPagesGeneratorService {
 
   public static List<String> generateModelAddAndEditPagesData(
@@ -12,6 +13,7 @@ public class ModelAddAndEditPagesGeneratorService {
     for (Variable variable : variables) {
       String smallName = CorrectorService.toSmallString(variable.getName());
       String capitalName = CorrectorService.toCapitalString(variable.getName());
+      // FIXME: use StringBuilder
       variableTRs +=
           "\t\t<tr>\n"
               + "\t\t\t<th>"
@@ -24,11 +26,11 @@ public class ModelAddAndEditPagesGeneratorService {
     }
     boolean variableTRsWereFound = false;
     for (int i = 0; i < data.size(); i++) {
-      if (data.get(i).contains("{Model}"))
+      if (data.get(i).contains("{Model}")) {
         data.set(i, data.get(i).replace("{Model}", capitalModel));
-      else if (data.get(i).contains("{model}"))
+      } else if (data.get(i).contains("{model}")) {
         data.set(i, data.get(i).replaceAll("\\{model}", smallModel));
-      else if (!variableTRsWereFound && data.get(i).contains("{variableTRs}")) {
+      } else if (!variableTRsWereFound && data.get(i).contains("{variableTRs}")) {
         data.set(i, data.get(i).replace("{variableTRs}", variableTRs));
         variableTRsWereFound = true;
       }
