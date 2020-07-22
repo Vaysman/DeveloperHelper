@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class DocDonateController {
 
-    @GetMapping("/doc")
-    public String docPage() {
-        return "doc";
-    }
+  @GetMapping("/doc")
+  public String docPage() {
+    return "doc";
+  }
 
-    @GetMapping("/donate")
-    public String donatePage() {
-        return "donate";
-    }
+  @GetMapping("/donate")
+  public String donatePage() {
+    return "donate";
+  }
 }

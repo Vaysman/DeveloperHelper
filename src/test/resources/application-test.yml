@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    platform: h2
+  mail:
+    host: smtp.example.com
+    port: 465
+    protocol: smtp
+    username: user
+    password: password
+
+main:
+  domain: 'localhost:8080'
