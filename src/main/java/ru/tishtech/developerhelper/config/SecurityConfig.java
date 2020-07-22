@@ -39,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/contact",
             "/activate/*",
             "/static/**",
+            "/webjars/**",
             "/favicon.ico",
             "/actuator/**",
             "/h2-console/**")
